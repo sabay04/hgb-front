@@ -1,10 +1,15 @@
 import React, { Component } from "react";
+import FormulaDetails from "../presentational/formulaDetails";
 
 // app > formula details container
 class FormulaDetailsContainer extends Component {
   state = {};
   render() {
-    return <div>Formula Details container</div>;
+    return (
+      <div>
+        <FormulaDetails formula={this.props.formula} />
+      </div>
+    );
   }
 }
 

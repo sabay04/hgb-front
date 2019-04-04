@@ -1,10 +1,15 @@
 import React, { Component } from "react";
+import IngredientDetails from "../presentational/ingredientDetails";
 
 // app > ingredient details container
 class IngredientDetailsContainer extends Component {
   state = {};
   render() {
-    return <div>Ingredient details container</div>;
+    return (
+      <div>
+        <IngredientDetails ingredient={this.props.ingredient} />
+      </div>
+    );
   }
 }
 
