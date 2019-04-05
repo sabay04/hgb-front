@@ -3,8 +3,24 @@ const formulasUrl = `${baseUrl}/formulas`;
 const usersUrl = `${baseUrl}/users`;
 const ingredientsUrl = `${baseUrl}/ingredients`;
 const areasUrl = `${baseUrl}/areas`;
+const loginUrl = `${baseUrl}/login`;
 
 // ============================ GET FUNCTIONS =========================================
+
+const login = user => {
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token")
+    },
+    body: JSON.stringify({
+      user
+    })
+  };
+
+  return fetch(loginUrl, options).then(resp => resp.json());
+};
 
 const getFormulas = () => {
   return getFunction(formulasUrl);
@@ -35,6 +51,7 @@ const getFunction = url => {
 // =========================================POST FUNCTIONS  =======================================================
 
 export default {
+  login,
   getFormulas,
   getUsers,
   getIngredients,

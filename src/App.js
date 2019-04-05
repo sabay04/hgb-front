@@ -29,6 +29,12 @@ class App extends Component {
     API.getIngredients().then(ingredients => this.setState({ ingredients }));
   }
 
+  // ======================================== Login ============================================
+  login = user => {
+    API.login(user).then(user => this.setState({ currentUser: user }));
+    // console.log(user);
+  };
+
   // ======================================== selection ========================================
 
   setSelectedFormula = formulaId => {
@@ -70,6 +76,12 @@ class App extends Component {
         <Route
           exact
           path={`/login`}
+          component={() => <SignupLoginContainer login={this.login} />}
+        />
+
+        <Route
+          exact
+          path={`/signup`}
           component={() => <SignupLoginContainer />}
         />
 
@@ -85,9 +97,21 @@ class App extends Component {
         />
 
         <Route
+          exact
           path={`/formulas/:formulaId`}
           component={() => (
             <FormulaDetailsContainer formula={this.findSelectedFormula()} />
+          )}
+        />
+
+        <Route
+          exact
+          path={`/formula/create`}
+          component={() => (
+            <FormulaFormContainer
+              areas={this.state.areas}
+              ingredients={this.state.ingredients}
+            />
           )}
         />
 
@@ -115,12 +139,6 @@ class App extends Component {
           exact
           path={`/favourites`}
           component={() => <ExploreContainer />}
-        />
-
-        <Route
-          exact
-          path={`/formulas/create`}
-          component={() => <FormulaFormContainer />}
         />
 
         <Route

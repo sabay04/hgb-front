@@ -12,7 +12,7 @@ class MainNavContainer extends Component {
         <NavLink to="/formulas"> Formulas </NavLink>
         <NavLink to="/ingredients"> Ingredients </NavLink>
         <NavLink to="/favourites"> Favourites </NavLink>
-        <NavLink to="/formulas/create"> Create </NavLink>
+        <NavLink to="/formula/create"> Create </NavLink>
         <NavLink to="/login"> Login </NavLink>
         <NavLink to="/profile"> Profile </NavLink>
       </div>
