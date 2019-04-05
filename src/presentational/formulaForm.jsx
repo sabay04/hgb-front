@@ -96,7 +96,28 @@ class FormulaForm extends Component {
 
           <div className="ingredient_form">
             {this.state.ingredients.map((ingredient, index) => {
-              return <div key={index}>{/* select reactSelectize */}</div>;
+              return (
+                <div key={index}>
+                  {
+                    <select name="name" data-id={index}>
+                      <option value="" disabled selected>
+                        Ingredient name
+                      </option>
+                      {this.props.ingredients.map(ing => (
+                        <option value={ing.name}>{ing.name}</option>
+                      ))}
+                    </select>
+                  }
+
+                  <input
+                    name="percentage"
+                    data-id={index}
+                    type="number"
+                    placeholder="Percentage"
+                    // value={ingredient.percentage}
+                  />
+                </div>
+              );
             })}
           </div>
 
