@@ -35,6 +35,10 @@ class App extends Component {
     // console.log(user);
   };
 
+  createUser = user => {
+    API.createUser(user).then(user => this.setState({ currentUser: user }));
+  };
+
   // ======================================== selection ========================================
 
   setSelectedFormula = formulaId => {

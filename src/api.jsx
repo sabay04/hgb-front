@@ -19,6 +19,8 @@ const login = user => {
     })
   };
 
+  const createUser = user => {};
+
   return fetch(loginUrl, options).then(resp => resp.json());
 };
 
