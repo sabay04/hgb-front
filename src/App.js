@@ -180,7 +180,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.currentUser ? <MainNavContainer /> : null}
+        {/* comment back in later conditionally rendering the nav bar  */}
+        {/* {this.state.currentUser ? <MainNavContainer /> : null} */}
+        <MainNavContainer />
         <div className="app_content_wrapper">{this.routing()}</div>
       </div>
     );

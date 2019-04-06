@@ -129,3 +129,36 @@ label {
   padding: 5px;
   font-family: "Tenor Sans", sans-serif;
 }
+
+div.ui.container.nav_bar {
+  background-color: #cc9e87;
+  width: 100vw;
+  height: 100px;
+  justify-content: center;
+}
+
+/* div.ui.container.nav_bar .nav_item:hover {
+  color: black;
+} */
+
+.nav_logo {
+  width: 150px;
+  margin-left: 10px;
+  float: left;
+  height: 100px;
+  /* position: relative; */
+  /* margin: 50px; */
+}
+
+.nav_item {
+  font-family: "Tenor Sans", sans-serif;
+  font-size: 1.5em;
+  float: right;
+  color: white;
+
+  margin: 40px;
+}
+
+a.nav_item:hover {
+  color: #a3593f;
+}
