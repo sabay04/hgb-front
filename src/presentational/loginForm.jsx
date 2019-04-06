@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Form, Container, Divider } from "semantic-ui-react";
+import logo from "../images/hgb.png";
 
 class LoginForm extends Component {
   state = {
@@ -23,23 +25,36 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <div className="login_form_cont">
-        <h1>Login</h1>
-        <form
-          className="login_form"
-          onSubmit={this.handleSubmit}
-          onChange={this.handleFormChange}
-        >
-          <input type="text" placeholder="Username" name="username" />
+      <Container>
+        <img className="welcome_logo" src={logo} alt="house of green beauty" />
+        <div className="login_form_cont">
+          <h1 className="form_title">Login</h1>
+          <Form
+            className="login_form"
+            onSubmit={this.handleSubmit}
+            onChange={this.handleFormChange}
+          >
+            <Form.Field required>
+              <label>Username</label>
+              <input type="text" placeholder="Username" name="username" />
+            </Form.Field>
 
-          <input type="password" placeholder="Password" name="password" />
-          <button type="submit"> Login </button>
-        </form>
-        <h4>------------------ or -------------------</h4>
-        <Link className="link" to={`/signup`}>
-          <button> Sign up </button>
-        </Link>
-      </div>
+            <Form.Field required>
+              <label>Password</label>
+              <input type="password" placeholder="Password" name="password" />
+            </Form.Field>
+
+            <button className="submit" type="submit">
+              {" "}
+              Login{" "}
+            </button>
+          </Form>
+          <Divider horizontal>Or</Divider>
+          <Link className="link" to={`/signup`}>
+            <button className="option"> Sign up </button>
+          </Link>
+        </div>
+      </Container>
     );
   }
 }

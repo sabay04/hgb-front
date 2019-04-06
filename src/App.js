@@ -11,6 +11,8 @@ import IngredientDetailsContainer from "./container/ingredientDetailsContainer";
 import UserProfileContainer from "./container/userProfileContainer";
 import FormulaFormContainer from "./container/formulaFormContainer";
 
+import logo from "./images/hgb.png";
+
 class App extends Component {
   state = {
     formulas: [],
@@ -178,10 +180,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="nav_bar">
-          <MainNavContainer />{" "}
-        </div>
-        {this.routing()}
+        {this.state.currentUser ? <MainNavContainer /> : null}
+        <div className="app_content_wrapper">{this.routing()}</div>
       </div>
     );
   }
