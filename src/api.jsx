@@ -52,7 +52,20 @@ const getFunction = url => {
 
 // =========================================POST FUNCTIONS  =======================================================
 
+const createFormula = formula => {
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(formula)
+  };
+
+  return fetch(formulasUrl, options).then(resp => resp.json());
+};
+
 export default {
+  createFormula,
   login,
   getFormulas,
   getUsers,

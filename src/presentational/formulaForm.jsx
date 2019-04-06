@@ -1,26 +1,51 @@
 import React, { Component } from "react";
-
+// app > formula form container  > formula form
 class FormulaForm extends Component {
   state = {
     title: "",
     description: "",
     area: "",
-    category: "",
-    ingredients: [{ name: " ", percentage: " " }],
+    category_id: "",
+    ingredients: [],
     directions: "",
     concerns: [],
     image: ""
   };
 
   handleFormChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
+    if (["name", "percent"].includes(event.target.name)) {
+      let ingredients = [...this.state.ingredients];
+      ingredients[event.target.dataset.id][event.target.name] =
+        event.target.value;
+      this.setState({ ingredients });
+    } else {
+      this.setState({ [event.target.name]: event.target.value });
+    }
   };
 
-  handleSubmit = () => {
+  // handleFormChange = event => {
+  //   this.setState({
+  //     [event.target.name]: event.target.value
+  //   });
+  // };
+
+  handleSubmit = event => {
+    event.preventDefault();
     const newFormula = this.state;
-    // add new formula
+    this.props.addNewFormula(newFormula);
+
+    // .then(() => {
+    //   this.setState({
+    //     title: "",
+    //     description: "",
+    //     area: "",
+    //     category: "",
+    //     ingredients: [],
+    //     directions: "",
+    //     concerns: [],
+    //     image: ""
+    //   });
+    // });
   };
 
   getAreaCategories = () => {
@@ -32,7 +57,7 @@ class FormulaForm extends Component {
     // const categories = selectedArea.filter(area => area.categories);
 
     return selectedArea.categories.map(category => (
-      <option value={category.name}>{category.name} </option>
+      <option value={category.id}>{category.name}</option>
     ));
   };
 
@@ -50,7 +75,7 @@ class FormulaForm extends Component {
   addIngredient = event => {
     event.preventDefault();
     this.setState({
-      ingredients: [...this.state.ingredients, { name: "", percentage: "" }]
+      ingredients: [...this.state.ingredients, { name: "", percent: "" }]
     });
   };
 
@@ -82,7 +107,7 @@ class FormulaForm extends Component {
             ))}
           </select>
 
-          <select name="category">
+          <select name="category_id">
             <option value="" disabled selected>
               Category
             </option>
@@ -110,12 +135,18 @@ class FormulaForm extends Component {
                   }
 
                   <input
-                    name="percentage"
+                    name="percent"
                     data-id={index}
                     type="number"
                     placeholder="Percentage"
                     // value={ingredient.percentage}
                   />
+                  <button
+                    className="remove_ingredient"
+                    onClick={() => this.removeIngredient(index)}
+                  >
+                    Remove
+                  </button>
                 </div>
               );
             })}
@@ -131,6 +162,7 @@ class FormulaForm extends Component {
           </select>
           {/* // concerns tags */}
           <input type="url" name="image" placeholder="Image url" />
+          <br />
           <button type="submit"> Create </button>
         </form>
       </div>

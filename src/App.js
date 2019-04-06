@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import API from "./api";
-import { withRouter, Router, Route } from "react-router-dom";
+import { Redirect, withRouter, Router, Route } from "react-router-dom";
 import SignupLoginContainer from "./container/signupLoginContainer";
 import HomeContainer from "./container/homeContainer";
 import ExploreContainer from "./container/exploreContainer";
@@ -71,6 +71,26 @@ class App extends Component {
     );
   };
 
+  //========================================== formula crud ===================================
+
+  addNewFormula = formula => {
+    formula.user_id = this.state.currentUser.id;
+
+    API.createFormula(formula).then(formula => {
+      this.setState({
+        formulas: [...this.state.formulas, formula],
+        selectedFormulaId: formula.id
+      });
+    });
+
+    // .then(() => (
+    //   <Redirect to={`/formulas/${this.state.selectedFormulaId}`} push />
+    // ));
+    // navigate to /formulas/:formulaId
+    //.then(() => <Redirect to={`/formulas/:formulaId`} />);
+    // .then <redirect to formula view page
+  };
+
   // ========================================== routing =======================================
 
   routing = () => {
@@ -115,6 +135,7 @@ class App extends Component {
             <FormulaFormContainer
               areas={this.state.areas}
               ingredients={this.state.ingredients}
+              addNewFormula={this.addNewFormula}
             />
           )}
         />
