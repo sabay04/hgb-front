@@ -13,7 +13,7 @@ class FormulaDetailsContainer extends Component {
           <Link to="/formula/edit">
             <button>Edit</button>
           </Link>
-          <button>Delete</button>{" "}
+          <button onClick={() => this.props.deleteFormula()}>Delete</button>{" "}
         </div>
       );
     }

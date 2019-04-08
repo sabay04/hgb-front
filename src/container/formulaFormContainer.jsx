@@ -20,7 +20,7 @@ class FormulaFormContainer extends Component {
         <EditFormula
           areas={this.props.areas}
           ingredients={this.props.ingredients}
-          editFormula={this.props.editNewFormula}
+          editFormula={this.props.editFormula}
           selectedFormula={this.props.selectedFormula}
         />
       );

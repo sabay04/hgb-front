@@ -64,7 +64,39 @@ const createFormula = formula => {
   return fetch(formulasUrl, options).then(resp => resp.json());
 };
 
+// ================================= PATCH FUNCTION ===========================================
+
+const editFormula = formula => {
+  const options = {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      formula
+    })
+  };
+  return fetch(`${formulasUrl}/${formula.id}`, options).then(resp =>
+    resp.json()
+  );
+};
+
+//============================================ delete functions =================================
+
+const deleteFormula = formula => {
+  const options = {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" }
+  };
+
+  return fetch(`${formulasUrl}/${formula.id}`, options).then(resp =>
+    resp.json()
+  );
+};
+
+// ======================================== export =========================================
+
 export default {
+  deleteFormula,
+  editFormula,
   createFormula,
   login,
   getFormulas,

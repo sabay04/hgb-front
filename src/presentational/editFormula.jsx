@@ -3,6 +3,7 @@ import { Form, Container, Dropdown } from "semantic-ui-react";
 
 class EditFormula extends Component {
   state = {
+    id: undefined,
     title: "",
     description: "",
     area: "",
@@ -16,6 +17,7 @@ class EditFormula extends Component {
   componentDidMount = () => {
     const formula = this.props.selectedFormula;
     this.setState({
+      id: formula.id,
       title: formula.title,
       description: formula.description,
       category_id: formula.category_id,
@@ -116,17 +118,6 @@ class EditFormula extends Component {
 
     this.setState({
       ingredients: this.state.ingredients
-    });
-  };
-
-  handleConernForm = event => {
-    this.setState({ currentConcern: event.target.value });
-  };
-
-  handleConcernAddition = event => {
-    console.log(event.target);
-    this.setState({
-      concerns: [...this.state.concerns, event.target.value]
     });
   };
 
@@ -249,19 +240,6 @@ class EditFormula extends Component {
               {this.state.area ? this.getAreaConcerns() : null}
             </select>
           </Form.Field>
-          {/* <Dropdown
-                onChange={this.handleConernForm}
-                value={this.state.currentConcern}
-                onAddItem={this.handleConcernAddition}
-                name="concerns"
-                placeholder="Concerns"
-                fluid
-                allowAdditions
-                multiple
-                search
-                selection
-                options={this.state.area ? this.getAreaConcerns() : null}
-              /> */}
           {/* // concerns tags */}
           <Form.Field>
             <label>Image</label>

@@ -100,10 +100,40 @@ class App extends Component {
   };
 
   editFormula = formula => {
+    formula.area = this.findSelectedFormula().area;
     console.log(formula);
+    API.editFormula(formula)
+      .then(formula => {
+        let updatedFormulas = [...this.state.formulas];
+
+        let index = updatedFormulas.findIndex(f => f.id === formula.id);
+        updatedFormulas[index] = formula;
+
+        this.setState({
+          formulas: updatedFormulas,
+          selectedFormulaId: formula.id
+        });
+      })
+      .then(() =>
+        this.props.history.push(`/formulas/${this.state.selectedFormulaId}`)
+      );
+  };
+
+  deleteFormula = () => {
+    const formula = this.findSelectedFormula();
+    // console.log("delete", formula);
+    API.deleteFormula(formula).then(() => console.log("Delete resp"));
   };
 
   // ========================================== routing =======================================
+
+  redirectToFormulaExplore = () => {
+    if (this.state.selectedFormulaId) return;
+
+    if (this.state.selectedFormulaId === undefined) {
+      return this.props.history.push(`/formulas`);
+    }
+  };
 
   routing = () => {
     return (
@@ -139,6 +169,7 @@ class App extends Component {
             <FormulaDetailsContainer
               currentUser={this.state.currentUser}
               formula={this.findSelectedFormula()}
+              deleteFormula={this.deleteFormula}
             />
           )}
         />
