@@ -152,11 +152,11 @@ div.ui.container.nav_bar {
 
 .nav_item {
   font-family: "Tenor Sans", sans-serif;
-  font-size: 1.5em;
+  font-size: 1.4em;
   float: right;
   color: white;
-
-  margin: 40px;
+  margin: 20px;
+  margin-top: 40px;
 }
 
 a.nav_item:hover {

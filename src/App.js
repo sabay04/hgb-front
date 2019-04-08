@@ -33,7 +33,9 @@ class App extends Component {
 
   // ======================================== Login ============================================
   login = user => {
-    API.login(user).then(user => this.setState({ currentUser: user }));
+    API.login(user)
+      .then(user => this.setState({ currentUser: user }))
+      .then(() => this.props.history.push(`/`));
     // console.log(user);
   };
 
@@ -78,12 +80,16 @@ class App extends Component {
   addNewFormula = formula => {
     formula.user_id = this.state.currentUser.id;
 
-    API.createFormula(formula).then(formula => {
-      this.setState({
-        formulas: [...this.state.formulas, formula],
-        selectedFormulaId: formula.id
-      });
-    });
+    API.createFormula(formula)
+      .then(formula => {
+        this.setState({
+          formulas: [...this.state.formulas, formula],
+          selectedFormulaId: formula.id
+        });
+      })
+      .then(() =>
+        this.props.history.push(`/formulas/${this.state.selectedFormulaId}`)
+      );
 
     // .then(() => (
     //   <Redirect to={`/formulas/${this.state.selectedFormulaId}`} push />
@@ -180,9 +186,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* comment back in later conditionally rendering the nav bar  */}
-        {/* {this.state.currentUser ? <MainNavContainer /> : null} */}
-        <MainNavContainer />
+        {/* conditionally rendering the nav bar  */}
+        {this.state.currentUser ? <MainNavContainer /> : null}
+
         <div className="app_content_wrapper">{this.routing()}</div>
       </div>
     );
