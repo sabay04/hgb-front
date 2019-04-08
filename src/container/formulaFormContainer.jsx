@@ -1,19 +1,34 @@
 import React, { Component } from "react";
 import FormulaForm from "../presentational/formulaForm";
-
+import EditFormula from "../presentational/editFormula";
 // app  > formula form container
 
 class FormulaFormContainer extends Component {
   state = {};
-  render() {
-    return (
-      <div className="formula_form_wrapper">
+
+  whichFormToRender = () => {
+    if (window.location.pathname === `/formula/create`) {
+      return (
         <FormulaForm
           areas={this.props.areas}
           ingredients={this.props.ingredients}
           addNewFormula={this.props.addNewFormula}
         />
-      </div>
+      );
+    } else if (window.location.pathname === `/formula/edit`) {
+      return (
+        <EditFormula
+          areas={this.props.areas}
+          ingredients={this.props.ingredients}
+          editFormula={this.props.editNewFormula}
+          selectedFormula={this.props.selectedFormula}
+        />
+      );
+    }
+  };
+  render() {
+    return (
+      <div className="formula_form_wrapper">{this.whichFormToRender()}</div>
     );
   }
 }

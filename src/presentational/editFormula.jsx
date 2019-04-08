@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Container, Dropdown } from "semantic-ui-react";
-// app > formula form container  > formula form
-class FormulaForm extends Component {
+
+class EditFormula extends Component {
   state = {
     title: "",
     description: "",
@@ -13,9 +13,38 @@ class FormulaForm extends Component {
     image: ""
   };
 
+  componentDidMount = () => {
+    const formula = this.props.selectedFormula;
+    this.setState({
+      title: formula.title,
+      description: formula.description,
+      category_id: formula.category_id,
+      ingredients: formula.ingredients,
+      directions: formula.directions,
+      concerns: formula.concerns,
+      image: formula.image
+    });
+  };
+
+  setAreaState = () => {
+    const area = this.props.selectedFormula.area;
+    if (area === "Skin care") {
+      this.setState({
+        area: "Skin care"
+      });
+    } else if (area === "Hair care") {
+      this.setState({
+        area: "Hair care"
+      });
+    } else if (area === "Body care") {
+      this.setState({
+        area: "Body care"
+      });
+    }
+  };
   handleFormChange = event => {
     // console.log(event.target.name);
-    if (["name", "percent"].includes(event.target.name)) {
+    if (["name", "percentage"].includes(event.target.name)) {
       let ingredients = [...this.state.ingredients];
       ingredients[event.target.dataset.id][event.target.name] =
         event.target.value;
@@ -34,7 +63,7 @@ class FormulaForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const newFormula = this.state;
-    this.props.addNewFormula(newFormula);
+    this.props.editFormula(newFormula);
 
     // .then(() => {
     //   this.setState({
@@ -104,7 +133,7 @@ class FormulaForm extends Component {
   render() {
     return (
       <Container className="formula_form">
-        <h1 className="formula_form_title">Create a new formula</h1>
+        <h1 className="formula_form_title">Edit formula</h1>
         <Form
           className="formula_form"
           onSubmit={this.handleSubmit}
@@ -112,12 +141,21 @@ class FormulaForm extends Component {
         >
           <Form.Field>
             <label>Title</label>
-            <input type="text" name="title" placeholder="Title" />
+            <input
+              type="text"
+              name="title"
+              placeholder="Title"
+              value={this.state.title}
+            />
           </Form.Field>
 
           <Form.Field>
             <label>Description</label>
-            <textarea name="description" placeholder="Description" />
+            <textarea
+              name="description"
+              placeholder="Description"
+              value={this.state.description}
+            />
           </Form.Field>
 
           <Form.Field>
@@ -134,7 +172,7 @@ class FormulaForm extends Component {
 
           <Form.Field>
             <label>Category</label>
-            <select name="category_id">
+            <select name="category_id" value={this.state.category_id}>
               <option value="" disabled selected>
                 Category
               </option>
@@ -156,7 +194,11 @@ class FormulaForm extends Component {
                   {
                     <Form.Field>
                       <label>Ingredient Name</label>
-                      <select name="name" data-id={index}>
+                      <select
+                        name="name"
+                        data-id={index}
+                        value={ingredient.name}
+                      >
                         <option value="" disabled selected>
                           Ingredient name
                         </option>
@@ -169,11 +211,11 @@ class FormulaForm extends Component {
                   <Form.Field>
                     <label>Percentage</label>
                     <input
-                      name="percent"
+                      name="percentage"
                       data-id={index}
                       type="number"
                       placeholder="Percentage"
-                      // value={ingredient.percentage}
+                      value={ingredient.percentage}
                     />
                   </Form.Field>
                   <Form.Field>
@@ -191,12 +233,16 @@ class FormulaForm extends Component {
 
           <Form.Field>
             <label>Directions</label>
-            <textarea name="directions" placeholder="Directions" />
+            <textarea
+              name="directions"
+              placeholder="Directions"
+              value={this.state.directions}
+            />
           </Form.Field>
 
           <Form.Field>
             <label>Concerns</label>
-            <select name="concerns">
+            <select name="concerns" value={this.state.concerns}>
               <option value="" disabled selected>
                 Concerns
               </option>
@@ -204,22 +250,27 @@ class FormulaForm extends Component {
             </select>
           </Form.Field>
           {/* <Dropdown
-            onChange={this.handleConernForm}
-            value={this.state.currentConcern}
-            onAddItem={this.handleConcernAddition}
-            name="concerns"
-            placeholder="Concerns"
-            fluid
-            allowAdditions
-            multiple
-            search
-            selection
-            options={this.state.area ? this.getAreaConcerns() : null}
-          /> */}
+                onChange={this.handleConernForm}
+                value={this.state.currentConcern}
+                onAddItem={this.handleConcernAddition}
+                name="concerns"
+                placeholder="Concerns"
+                fluid
+                allowAdditions
+                multiple
+                search
+                selection
+                options={this.state.area ? this.getAreaConcerns() : null}
+              /> */}
           {/* // concerns tags */}
           <Form.Field>
             <label>Image</label>
-            <input type="url" name="image" placeholder="Image url" />
+            <input
+              type="url"
+              name="image"
+              placeholder="Image url"
+              value={this.state.image}
+            />
           </Form.Field>
           <br />
           <button className="submit" type="submit">
@@ -232,4 +283,4 @@ class FormulaForm extends Component {
   }
 }
 
-export default FormulaForm;
+export default EditFormula;

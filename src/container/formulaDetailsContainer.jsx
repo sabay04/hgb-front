@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import FormulaDetails from "../presentational/formulaDetails";
-
+import { Link } from "react-router-dom";
 // app > formula details container
 class FormulaDetailsContainer extends Component {
   state = {};
@@ -10,12 +10,15 @@ class FormulaDetailsContainer extends Component {
       return (
         <div className="edit_or_delete">
           {" "}
-          <button>Edit</button>
+          <Link to="/formula/edit">
+            <button>Edit</button>
+          </Link>
           <button>Delete</button>{" "}
         </div>
       );
     }
   };
+
   render() {
     return (
       <div>

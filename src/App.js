@@ -99,6 +99,10 @@ class App extends Component {
     // .then <redirect to formula view page
   };
 
+  editFormula = formula => {
+    console.log(formula);
+  };
+
   // ========================================== routing =======================================
 
   routing = () => {
@@ -147,6 +151,19 @@ class App extends Component {
               areas={this.state.areas}
               ingredients={this.state.ingredients}
               addNewFormula={this.addNewFormula}
+            />
+          )}
+        />
+
+        <Route
+          exact
+          path={`/formula/edit`}
+          component={() => (
+            <FormulaFormContainer
+              areas={this.state.areas}
+              ingredients={this.state.ingredients}
+              editFormula={this.editFormula}
+              selectedFormula={this.findSelectedFormula()}
             />
           )}
         />
