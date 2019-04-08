@@ -4,10 +4,26 @@ import FormulaDetails from "../presentational/formulaDetails";
 // app > formula details container
 class FormulaDetailsContainer extends Component {
   state = {};
+
+  renderEditorDelete = () => {
+    if (this.props.currentUser.id === this.props.formula.user_id) {
+      return (
+        <div className="edit_or_delete">
+          {" "}
+          <button>Edit</button>
+          <button>Delete</button>{" "}
+        </div>
+      );
+    }
+  };
   render() {
     return (
       <div>
-        <FormulaDetails formula={this.props.formula} />
+        {this.renderEditorDelete()}
+        <FormulaDetails
+          currentUser={this.props.currentUser}
+          formula={this.props.formula}
+        />
       </div>
     );
   }

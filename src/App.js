@@ -132,7 +132,10 @@ class App extends Component {
           exact
           path={`/formulas/:formulaId`}
           component={() => (
-            <FormulaDetailsContainer formula={this.findSelectedFormula()} />
+            <FormulaDetailsContainer
+              currentUser={this.state.currentUser}
+              formula={this.findSelectedFormula()}
+            />
           )}
         />
 
