@@ -7,7 +7,7 @@ class FormulaFormContainer extends Component {
   state = {};
   render() {
     return (
-      <div>
+      <div className="formula_form_wrapper">
         <FormulaForm
           areas={this.props.areas}
           ingredients={this.props.ingredients}
