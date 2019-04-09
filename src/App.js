@@ -22,7 +22,10 @@ class App extends Component {
       ? JSON.parse(window.localStorage.getItem("currentUser"))
       : undefined,
     selectedIngredientId: undefined,
-    selectedFormulaId: undefined
+    selectedFormulaId: undefined,
+    search: "",
+    concernSearch: "",
+    categorySearch: ""
   };
 
   // ============================ set up ======================================================
@@ -88,6 +91,39 @@ class App extends Component {
     );
   };
 
+  // =========================================== filter ======================================
+
+  handleSearchChange = event => {
+    event.persist();
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+    // console.log(event);
+  };
+
+  handleDropdownChange = (event, data) => {
+    event.persist();
+    this.setState({
+      [data.name]: data.value
+    });
+    console.log(data.value);
+  };
+
+  displayFilteredList = (list, searchTerm, concernName, categoryTerm) => {
+    return list
+      .filter(item =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      .filter(item =>
+        item.concerns.some(concern =>
+          concern.name.toLowerCase().includes(concernName.toLowerCase())
+        )
+      )
+      .filter(item =>
+        item.category.toLowerCase().includes(categoryTerm.toLowerCase())
+      );
+  };
+
   //========================================== formula crud ===================================
 
   addNewFormula = formula => {
@@ -150,7 +186,7 @@ class App extends Component {
 
   routing = () => {
     return (
-      <div>
+      <>
         <Route exact path={`/`} component={() => <HomeContainer />} />
         <Route
           exact
@@ -169,6 +205,7 @@ class App extends Component {
           path={`/formulas`}
           component={() => (
             <ExploreContainer
+              handleChange={this.handleSearchQueryChange}
               list={this.state.formulas}
               selectedItem={this.setSelectedFormula}
             />
@@ -221,9 +258,17 @@ class App extends Component {
         <Route
           exact
           path={`/ingredients`}
-          component={() => (
+          render={() => (
             <ExploreContainer
-              list={this.state.ingredients}
+              handleChange={this.handleSearchChange}
+              handleDropdown={this.handleDropdownChange}
+              // list={this.state.ingredients}
+              list={this.displayFilteredList(
+                this.state.ingredients,
+                this.state.search,
+                this.state.concernSearch,
+                this.state.categorySearch
+              )}
               selectedItem={this.setSelectedIngredient}
             />
           )}
@@ -241,7 +286,9 @@ class App extends Component {
         <Route
           exact
           path={`/favourites`}
-          component={() => <ExploreContainer />}
+          render={() => (
+            <ExploreContainer handleChange={this.handleSearchChange} />
+          )}
         />
 
         <Route
@@ -249,7 +296,7 @@ class App extends Component {
           path={`/profile`}
           component={() => <UserProfileContainer />}
         />
-      </div>
+      </>
     );
   };
 

@@ -3,13 +3,13 @@ import FormulaCard from "../presentational/formulaCard";
 import IngredientCard from "../presentational/ingredientCard";
 import Filter from "../presentational/filter";
 import { Link } from "react-router-dom";
-import { Grid } from "semantic-ui-react";
+import { Grid, Placeholder } from "semantic-ui-react";
 // implement grid
 // app > explore > cardBlockContainer
 class CardBlockContainer extends Component {
-  //   state = {
-  //     currentPath: undefined
-  //   };
+  // state = {
+  //   loading: false
+  // };
 
   //   findPathName = () => {
   //     this.setState({
@@ -17,8 +17,16 @@ class CardBlockContainer extends Component {
   //     });
   //   };
 
+  // loadingList = () => {
+  //   if (this.props.list) {
+  //     this.setState({
+  //       loading: true
+  //     });
+  //   }
+  // };
+
   renderFormulas = () => {
-    return this.props.list.map(formula => (
+    this.props.list.map(formula => (
       <Grid.Column>
         <Link className="link" to={`/formulas/${formula.id}`}>
           <FormulaCard
@@ -59,24 +67,31 @@ class CardBlockContainer extends Component {
             </h1>
           </div>
         )}
-        <Grid columns="equal">
-          {/* <Grid.Row columns={2}> */}
+        {/* <Grid columns="equal">
           <Grid.Column width={3}>
             <Filter />
-          </Grid.Column>
+          </Grid.Column> */}
 
-          <Grid.Column className="explore_grid">
-            <Grid doubling columns={5}>
-              {window.location.pathname === "/ingredients"
-                ? this.renderIngredients()
-                : this.renderFormulas()}
-            </Grid>
-          </Grid.Column>
-          {/* </Grid.Row> */}
+        {/* <Grid.Column className="explore_grid"> */}
+        <Grid doubling columns={5}>
+          {window.location.pathname === "/ingredients"
+            ? this.renderIngredients()
+            : window.location.pathname === "/formulas"
+            ? this.renderFormulas()
+            : null}
         </Grid>
+        {/* </Grid.Column> */}
+        {/* </Grid.Row> */}
+        {/* </Grid> */}
       </div>
     );
   }
 }
 
 export default CardBlockContainer;
+
+// {window.location.pathname === "/ingredients"
+//             ? this.renderIngredients()
+//             : this.renderFormulas()}
+
+// { (window.location.pathname === '/ingredients')? this.renderIngredients() : (window.location.pathname === "/formulas") ? this.renderFormulas() : null }
