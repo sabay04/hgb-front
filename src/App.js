@@ -18,7 +18,9 @@ class App extends Component {
     formulas: [],
     ingredients: [],
     areas: [],
-    currentUser: undefined,
+    currentUser: window.localStorage.getItem("currentUser")
+      ? JSON.parse(window.localStorage.getItem("currentUser"))
+      : undefined,
     selectedIngredientId: undefined,
     selectedFormulaId: undefined
   };
@@ -31,16 +33,21 @@ class App extends Component {
     API.getIngredients().then(ingredients => this.setState({ ingredients }));
   }
 
+  handleUser = user => {
+    window.localStorage.setItem("currentUser", JSON.stringify(user));
+    this.setState({ currentUser: user });
+  };
+
   // ======================================== Login ============================================
   login = user => {
     API.login(user)
-      .then(user => this.setState({ currentUser: user }))
+      .then(this.handleUser)
       .then(() => this.props.history.push(`/`));
     // console.log(user);
   };
 
   createUser = user => {
-    API.createUser(user).then(user => this.setState({ currentUser: user }));
+    API.createUser(user).then(this.handleUser);
   };
 
   // ======================================== selection ========================================
@@ -59,11 +66,17 @@ class App extends Component {
 
   //=================================== find selected element ============================================
 
-  findSelectedFormula = () => {
-    if (this.state.selectedFormulaId === undefined) return;
+  findSelectedFormula = selectedFormulaId => {
+    if (
+      this.state.selectedFormulaId === undefined &&
+      selectedFormulaId === undefined
+    )
+      return;
 
     return this.state.formulas.find(
-      formula => formula.id === this.state.selectedFormulaId
+      formula =>
+        formula.id === selectedFormulaId ||
+        formula.id === this.state.selectedFormulaId
     );
   };
 
@@ -165,10 +178,13 @@ class App extends Component {
         <Route
           exact
           path={`/formulas/:formulaId`}
-          component={() => (
+          component={props => (
             <FormulaDetailsContainer
+              {...props}
               currentUser={this.state.currentUser}
-              formula={this.findSelectedFormula()}
+              formula={this.findSelectedFormula(
+                parseInt(props.match.params.formulaId)
+              )}
               deleteFormula={this.deleteFormula}
             />
           )}
@@ -188,13 +204,16 @@ class App extends Component {
 
         <Route
           exact
-          path={`/formula/edit`}
-          component={() => (
+          path={`/formulas/:formulaId/edit`}
+          component={props => (
             <FormulaFormContainer
+              {...props}
               areas={this.state.areas}
               ingredients={this.state.ingredients}
               editFormula={this.editFormula}
-              selectedFormula={this.findSelectedFormula()}
+              selectedFormula={this.findSelectedFormula(
+                parseInt(props.match.params.formulaId)
+              )}
             />
           )}
         />

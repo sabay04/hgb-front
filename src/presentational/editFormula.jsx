@@ -15,35 +15,22 @@ class EditFormula extends Component {
   };
 
   componentDidMount = () => {
-    const formula = this.props.selectedFormula;
-    this.setState({
-      id: formula.id,
-      title: formula.title,
-      description: formula.description,
-      category_id: formula.category_id,
-      ingredients: formula.ingredients,
-      directions: formula.directions,
-      concerns: formula.concerns,
-      image: formula.image
-    });
-  };
-
-  setAreaState = () => {
-    const area = this.props.selectedFormula.area;
-    if (area === "Skin care") {
+    if (this.props.selectedFormula) {
+      const formula = this.props.selectedFormula;
       this.setState({
-        area: "Skin care"
-      });
-    } else if (area === "Hair care") {
-      this.setState({
-        area: "Hair care"
-      });
-    } else if (area === "Body care") {
-      this.setState({
-        area: "Body care"
+        id: formula.id,
+        title: formula.title,
+        description: formula.description,
+        category_id: formula.category_id,
+        ingredients: formula.ingredients,
+        directions: formula.directions,
+        concerns: formula.concerns,
+        image: formula.image,
+        area: formula.area
       });
     }
   };
+
   handleFormChange = event => {
     // console.log(event.target.name);
     if (["name", "percentage"].includes(event.target.name)) {
@@ -82,11 +69,12 @@ class EditFormula extends Component {
   };
 
   getAreaCategories = () => {
-    if (this.state.area === undefined) return;
+    if (!this.state.area) return null;
 
     const selectedArea = this.props.areas.find(
       area => area.name === this.state.area
     );
+    if (!selectedArea) return null;
     // const categories = selectedArea.filter(area => area.categories);
 
     return selectedArea.categories.map(category => (
@@ -95,14 +83,17 @@ class EditFormula extends Component {
   };
 
   getAreaConcerns = () => {
-    if (this.state.area === undefined) return;
+    if (!this.state.area) return null;
 
     const selectedArea = this.props.areas.find(
       area => area.name === this.state.area
     );
-    return selectedArea.concerns.map((concern, index) =>
-      // <option value={concern.name}>{concern.name} </option>
-      ({ key: index, text: concern.name, value: concern.id, name: "concerns" })
+
+    if (!selectedArea) return null;
+
+    return selectedArea.concerns.map(
+      (concern, index) => <option value={concern.name}>{concern.name} </option>
+      // ({ key: index, text: concern.name, value: concern.id, name: "concerns" })
     );
   };
 
@@ -122,6 +113,7 @@ class EditFormula extends Component {
   };
 
   render() {
+    if (!this.props.selectedFormula) return <div>Loading edit form</div>;
     return (
       <Container className="formula_form">
         <h1 className="formula_form_title">Edit formula</h1>
@@ -151,7 +143,7 @@ class EditFormula extends Component {
 
           <Form.Field>
             <label>Area</label>
-            <select name="area">
+            <select name="area" value={this.state.area}>
               <option value="" disabled selected>
                 Area
               </option>
@@ -241,7 +233,7 @@ class EditFormula extends Component {
             </select>
           </Form.Field>
           {/* // concerns tags */}
-          <Form.Field>
+          {/* <Form.Field>
             <label>Image</label>
             <input
               type="url"
@@ -249,7 +241,7 @@ class EditFormula extends Component {
               placeholder="Image url"
               value={this.state.image}
             />
-          </Form.Field>
+          </Form.Field> */}
           <br />
           <button className="submit" type="submit">
             {" "}

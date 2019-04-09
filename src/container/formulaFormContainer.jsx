@@ -15,7 +15,7 @@ class FormulaFormContainer extends Component {
           addNewFormula={this.props.addNewFormula}
         />
       );
-    } else if (window.location.pathname === `/formula/edit`) {
+    } else if (this.props.match.path === `/formulas/:formulaId/edit`) {
       return (
         <EditFormula
           areas={this.props.areas}

@@ -10,7 +10,7 @@ class FormulaDetailsContainer extends Component {
       return (
         <div className="edit_or_delete">
           {" "}
-          <Link to="/formula/edit">
+          <Link to={`/formulas/${this.props.formula.id}/edit`}>
             <button>Edit</button>
           </Link>
           <button onClick={() => this.props.deleteFormula()}>Delete</button>{" "}
@@ -20,6 +20,7 @@ class FormulaDetailsContainer extends Component {
   };
 
   render() {
+    if (!this.props.formula) return <div>Loading formula</div>;
     return (
       <div>
         {this.renderEditorDelete()}
