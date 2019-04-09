@@ -171,7 +171,7 @@ class App extends Component {
   deleteFormula = () => {
     const formula = this.findSelectedFormula();
     // console.log("delete", formula);
-    API.deleteFormula(formula).then(() => console.log("Delete resp"));
+    API.deleteFormula(formula).then(() => this.props.history.push(`/formulas`));
   };
 
   // ========================================== routing =======================================

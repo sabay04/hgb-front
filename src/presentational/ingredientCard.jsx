@@ -16,58 +16,55 @@ const colour = () => {
   return tagColours[Math.floor(Math.random() * tagColours.length)];
 };
 
-// app > explore > cardBlockContainer > card
-const IngredientCard = ({ ingredient, selectedItem }) => {
-  return (
-    // <div class="card" onClick={() => selectedItem(ingredient.id)}>
-    //   <img src={ingredient.image} alt={ingredient.title} />
-    //   <div className="card_content">
-    //     <h3>{ingredient.category}</h3>
-    //     <h1>{ingredient.name}</h1>
-    //     <h4>{ingredient.scientific_name}</h4>
-    //     <div className="concern_tags">
-    //       {ingredient.concerns.map(concern => (
-    //         <div className="concern_tag">
-    //           <p>{concern.name}</p>
-    //         </div>
-    //       ))}
-    //     </div>
-    //   </div>
-    // </div>
+class IngredientCard extends Component {
+  state = {
+    extra: false
+  };
 
-    <Card className="card" onClick={() => selectedItem(ingredient.id)}>
-      <Image src={ingredient.image} alt={ingredient.name} />
-      <Card.Content>
-        <Card.Meta className="card_type">{ingredient.category}</Card.Meta>
-        <Card.Header className="card_title">{ingredient.name}</Card.Header>
-        <Card.Meta className="card_subtitle">
-          {ingredient.scientific_name}
-        </Card.Meta>
-      </Card.Content>
-      {/* <Divider /> */}
+  handleHover = () => {
+    this.setState({
+      extra: !this.state.extra
+    });
+  };
+
+  showIngredientConcerns = () => {
+    return (
       <Card.Content extra>
-        {ingredient.concerns.map(concern => (
+        <Divider />
+        {this.props.ingredient.concerns.map(concern => (
           <Label color={colour()}>{concern.name}</Label>
         ))}
       </Card.Content>
-    </Card>
-  );
-};
+    );
+  };
+
+  render() {
+    const { ingredient, selectedItem } = this.props;
+    return (
+      <Card
+        className="card"
+        onClick={() => selectedItem(ingredient.id)}
+        onMouseEnter={this.handleHover}
+        onMouseLeave={this.handleHover}
+      >
+        <Image src={ingredient.image} alt={ingredient.name} />
+        <Card.Content>
+          <Card.Meta className="card_type">{ingredient.category}</Card.Meta>
+          <Card.Header className="card_title">{ingredient.name}</Card.Header>
+          <Card.Meta className="card_subtitle">
+            {ingredient.scientific_name}
+          </Card.Meta>
+        </Card.Content>
+        {this.state.extra ? this.showIngredientConcerns() : null}
+        {/* <Divider />
+        <Card.Content extra>
+          {ingredient.concerns.map(concern => (
+            <Label color={colour()}>{concern.name}</Label>
+          ))}
+        </Card.Content> */}
+      </Card>
+    );
+  }
+}
 
 export default IngredientCard;
-
-{
-  /* <Card className="card" onClick={() => selectedItem(ingredient.id)}>
-  <Image src={ingredient.image} alt={ingredient.name} />
-  <Card.Content>
-    <Card.Meta>{ingredient.category}</Card.Meta>
-    <Card.Header>{ingredient.name}</Card.Header>
-    <Card.Meta>{ingredient.scientific_name}</Card.Meta>
-  </Card.Content>
-  <Card.Content extra>
-    {formula.concerns.map(concern => (
-      <Label color={colour()}>{concern.name}</Label>
-    ))}
-  </Card.Content>
-</Card>; */
-}
