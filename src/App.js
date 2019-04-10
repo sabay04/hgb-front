@@ -17,6 +17,7 @@ class App extends Component {
   state = {
     formulas: [],
     ingredients: [],
+    favourites: [],
     areas: [],
     currentUser: window.localStorage.getItem("currentUser")
       ? JSON.parse(window.localStorage.getItem("currentUser"))
@@ -25,7 +26,8 @@ class App extends Component {
     selectedFormulaId: undefined,
     search: "",
     concernSearch: "",
-    categorySearch: ""
+    categorySearch: "",
+    areaSearch: ""
   };
 
   // ============================ set up ======================================================
@@ -34,6 +36,7 @@ class App extends Component {
     API.getFormulas().then(formulas => this.setState({ formulas }));
     API.getAreas().then(areas => this.setState({ areas }));
     API.getIngredients().then(ingredients => this.setState({ ingredients }));
+    API.getFavourites().then(favourites => this.setState({ favourites }));
   }
 
   handleUser = user => {
@@ -91,6 +94,23 @@ class App extends Component {
     );
   };
 
+  findUsersFavourites = () => {
+    const favs = [];
+    const usersfavs = this.state.favourites.filter(
+      fav => fav.user_id === this.state.currentUser.id
+    );
+
+    for (const formula in this.state.formulas) {
+      for (const userfav in usersfavs) {
+        if (this.state.formulas[formula].id === usersfavs[userfav].formula_id) {
+          favs.push(this.state.formulas[formula]);
+        }
+      }
+    }
+
+    return favs;
+  };
+
   // =========================================== filter ======================================
 
   handleSearchChange = event => {
@@ -116,8 +136,10 @@ class App extends Component {
     categoryTerm
   ) => {
     return list
-      .filter(item =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      .filter(
+        item =>
+          item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.scientific_name.toLowerCase().includes(searchTerm.toLowerCase())
       )
       .filter(item =>
         item.concerns.some(concern =>
@@ -129,7 +151,13 @@ class App extends Component {
       );
   };
 
-  displayFilteredFormulas = (list, searchTerm, concernName, categoryTerm) => {
+  displayFilteredFormulas = (
+    list,
+    searchTerm,
+    concernName,
+    categoryName,
+    areaName
+  ) => {
     return list
       .filter(item =>
         item.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -140,8 +168,9 @@ class App extends Component {
         )
       )
       .filter(item =>
-        item.category.toLowerCase().includes(categoryTerm.toLowerCase())
-      );
+        item.category.toLowerCase().includes(categoryName.toLowerCase())
+      )
+      .filter(item => item.area.toLowerCase().includes(areaName.toLowerCase()));
   };
 
   //========================================== formula crud ===================================
@@ -194,6 +223,24 @@ class App extends Component {
     API.deleteFormula(formula).then(() => this.props.history.push(`/formulas`));
   };
 
+  //============================================== favourite crud ==============================
+
+  favouriteFormula = selectedFormula => {
+    const favourite = {
+      user_id: this.state.currentUser.id,
+      formula_id: selectedFormula
+    };
+
+    console.log("you have favourited this:", favourite);
+    API.createFavourite(favourite).then(favourite =>
+      this.setState({ favourites: [...this.state.favourites, favourite] })
+    );
+  };
+
+  unfavouriteFormula = () => {
+    console.log("you have unfavourited this ");
+  };
+
   // ========================================== routing =======================================
 
   redirectToFormulaExplore = () => {
@@ -232,7 +279,8 @@ class App extends Component {
                 this.state.formulas,
                 this.state.search,
                 this.state.concernSearch,
-                this.state.categorySearch
+                this.state.categorySearch,
+                this.state.areaSearch
               )}
               selectedItem={this.setSelectedFormula}
             />
@@ -245,6 +293,9 @@ class App extends Component {
           component={props => (
             <FormulaDetailsContainer
               {...props}
+              allFavourites={this.state.favourites}
+              favourite={this.favouriteFormula}
+              unfavourite={this.unfavouriteFormula}
               currentUser={this.state.currentUser}
               formula={this.findSelectedFormula(
                 parseInt(props.match.params.formulaId)
@@ -314,7 +365,19 @@ class App extends Component {
           exact
           path={`/favourites`}
           render={() => (
-            <ExploreContainer handleChange={this.handleSearchChange} />
+            <ExploreContainer
+              handleChange={this.handleSearchChange}
+              handleDropdown={this.handleDropdownChange}
+              areas={this.state.areas}
+              list={this.displayFilteredFormulas(
+                this.findUsersFavourites(),
+                this.state.search,
+                this.state.concernSearch,
+                this.state.categorySearch,
+                this.state.areaSearch
+              )}
+              selectedItem={this.setSelectedFormula}
+            />
           )}
         />
 

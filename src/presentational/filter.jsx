@@ -11,7 +11,9 @@ const ingredientCategories = [
     value: "Active Botanical"
   },
   { key: "Carrier Oil", text: "Carrier Oil", value: "Carrier Oil" },
-  { key: "Clay", text: "Clay", value: "Clay" }
+  { key: "Clay", text: "Clay", value: "Clay" },
+  { key: "Humectant", text: "Humectant", value: "Humectant" },
+  { key: "Powder", text: "Powder", value: "Powder" }
 ];
 
 class Filter extends Component {
@@ -32,6 +34,14 @@ class Filter extends Component {
     return formulacategories;
   };
 
+  populateAreas = () => {
+    const areaOptions = [{ key: "All", text: "All", value: "" }];
+    this.props.areas.map(area =>
+      areaOptions.push({ key: area.name, text: area.name, value: area.name })
+    );
+    return areaOptions;
+  };
+
   categoryOptions = () => {
     if (window.location.pathname === "/ingredients") {
       return ingredientCategories;
@@ -39,6 +49,14 @@ class Filter extends Component {
       return this.populateFormulaCategories();
     }
   };
+
+  // areaOptions = () => {
+  //   if (window.location.pathname === "/ingredients") {
+  //     // return ingredientCategories;
+  //   } else {
+  //     // return this.populateFormulaCategories();
+  //   }
+  // };
 
   handleSearchChange = event => {
     console.log(event.target.value);
@@ -72,7 +90,21 @@ class Filter extends Component {
               />
             </Grid.Column>
           </Grid.Row>
-
+          {this.props.areas ? (
+            <Grid.Row>
+              <Grid.Column>
+                <Dropdown
+                  name="areaSearch"
+                  onChange={this.props.handleDropdown}
+                  placeholder="Select a area..."
+                  fluid
+                  search
+                  selection
+                  options={this.populateAreas()}
+                />
+              </Grid.Column>
+            </Grid.Row>
+          ) : null}
           <Grid.Row>
             <Grid.Column>
               {/* <Input

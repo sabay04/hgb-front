@@ -4,6 +4,7 @@ const usersUrl = `${baseUrl}/users`;
 const ingredientsUrl = `${baseUrl}/ingredients`;
 const areasUrl = `${baseUrl}/areas`;
 const loginUrl = `${baseUrl}/login`;
+const favouritesUrl = `${baseUrl}/favourites`;
 
 // ============================ GET FUNCTIONS =========================================
 
@@ -40,6 +41,10 @@ const getAreas = () => {
   return getFunction(areasUrl);
 };
 
+const getFavourites = () => {
+  return getFunction(favouritesUrl);
+};
+
 const getFunction = url => {
   // const options = {
   //   method: "GET",
@@ -64,6 +69,17 @@ const createFormula = formula => {
   return fetch(formulasUrl, options).then(resp => resp.json());
 };
 
+const createFavourite = favourite => {
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(favourite)
+  };
+
+  return fetch(favouritesUrl, options).then(resp => resp.json());
+};
 // ================================= PATCH FUNCTION ===========================================
 
 const editFormula = formula => {
@@ -95,6 +111,7 @@ const deleteFormula = formula => {
 // ======================================== export =========================================
 
 export default {
+  createFavourite,
   deleteFormula,
   editFormula,
   createFormula,
@@ -102,5 +119,6 @@ export default {
   getFormulas,
   getUsers,
   getIngredients,
-  getAreas
+  getAreas,
+  getFavourites
 };

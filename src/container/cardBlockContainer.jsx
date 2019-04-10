@@ -60,19 +60,24 @@ class CardBlockContainer extends Component {
               Explore -<i>ingredients</i>
             </h1>
           </div>
-        ) : (
+        ) : window.location.pathname === "/formulas" ? (
           <div className="page_title">
             <h1>
               Explore -<i>formulas</i>
             </h1>
           </div>
+        ) : (
+          <div className="page_title">
+            <h1>
+              Explore -<i>favourites</i>
+            </h1>
+          </div>
         )}
-        <Grid doubling columns={5}>
+
+        <Grid doubling columns={4}>
           {window.location.pathname === "/ingredients"
             ? this.renderIngredients()
-            : window.location.pathname === "/formulas"
-            ? this.renderFormulas()
-            : null}
+            : this.renderFormulas()}
         </Grid>
       </div>
     );
