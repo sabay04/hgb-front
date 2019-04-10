@@ -7,19 +7,15 @@ import unliked from "../images/unliked.png";
 // app > formula details container
 class FormulaDetailsContainer extends Component {
   state = {
-    favourite: false
+    // favourite: false
   };
 
-  checkiffavourited = () => {
-    const isFav = this.props.allFavourites.find(
+  isFavourite = () => {
+    return !!this.props.allFavourites.find(
       favourite =>
         favourite.user_id === this.props.currentUser.id &&
         favourite.formula_id === this.props.formula.id
     );
-
-    if (isFav) {
-      this.setState({ favourite: true });
-    }
   };
 
   handleBookmarkClick = () => {
@@ -31,8 +27,6 @@ class FormulaDetailsContainer extends Component {
       }
     });
   };
-
-  //
 
   renderOptions = () => {
     if (this.props.currentUser.id === this.props.formula.user_id) {
@@ -55,25 +49,14 @@ class FormulaDetailsContainer extends Component {
   };
 
   renderBookmark = () => {
-    if (this.state.favourite) {
-      return (
-        <Image
-          onClick={this.handleBookmarkClick}
-          className="bookmark"
-          size={"tiny"}
-          src={liked}
-        />
-      );
-    } else {
-      return (
-        <Image
-          onClick={this.handleBookmarkClick}
-          className="bookmark"
-          size={"tiny"}
-          src={unliked}
-        />
-      );
-    }
+    return (
+      <Image
+        onClick={this.handleBookmarkClick}
+        className="bookmark"
+        size={"tiny"}
+        src={this.isFavourite() ? liked : unliked}
+      />
+    );
   };
 
   render() {

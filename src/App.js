@@ -290,7 +290,7 @@ class App extends Component {
         <Route
           exact
           path={`/formulas/:formulaId`}
-          component={props => (
+          render={props => (
             <FormulaDetailsContainer
               {...props}
               allFavourites={this.state.favourites}
