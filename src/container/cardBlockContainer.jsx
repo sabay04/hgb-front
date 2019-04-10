@@ -26,7 +26,7 @@ class CardBlockContainer extends Component {
   // };
 
   renderFormulas = () => {
-    this.props.list.map(formula => (
+    return this.props.list.map(formula => (
       <Grid.Column>
         <Link className="link" to={`/formulas/${formula.id}`}>
           <FormulaCard
@@ -67,12 +67,6 @@ class CardBlockContainer extends Component {
             </h1>
           </div>
         )}
-        {/* <Grid columns="equal">
-          <Grid.Column width={3}>
-            <Filter />
-          </Grid.Column> */}
-
-        {/* <Grid.Column className="explore_grid"> */}
         <Grid doubling columns={5}>
           {window.location.pathname === "/ingredients"
             ? this.renderIngredients()
@@ -80,9 +74,6 @@ class CardBlockContainer extends Component {
             ? this.renderFormulas()
             : null}
         </Grid>
-        {/* </Grid.Column> */}
-        {/* </Grid.Row> */}
-        {/* </Grid> */}
       </div>
     );
   }

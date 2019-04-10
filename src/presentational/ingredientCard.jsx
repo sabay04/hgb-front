@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Card, Icon, Image, Label, Divider } from "semantic-ui-react";
+import {
+  Card,
+  Icon,
+  Image,
+  Label,
+  Divider,
+  Placeholder
+} from "semantic-ui-react";
 
 const tagColours = ["tan", "plantation", "sepiaSkin", "oxley", "roseFog"];
 
@@ -56,12 +63,6 @@ class IngredientCard extends Component {
           </Card.Meta>
         </Card.Content>
         {this.state.extra ? this.showIngredientConcerns() : null}
-        {/* <Divider />
-        <Card.Content extra>
-          {ingredient.concerns.map(concern => (
-            <Label color={colour()}>{concern.name}</Label>
-          ))}
-        </Card.Content> */}
       </Card>
     );
   }

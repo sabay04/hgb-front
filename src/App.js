@@ -203,7 +203,7 @@ class App extends Component {
         <Route
           exact
           path={`/formulas`}
-          component={() => (
+          render={() => (
             <ExploreContainer
               handleChange={this.handleSearchQueryChange}
               list={this.state.formulas}
