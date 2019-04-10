@@ -10,13 +10,13 @@ class FormulaDetailsContainer extends Component {
     // favourite: false
   };
 
-  isFavourite = () => {
-    return !!this.props.allFavourites.find(
-      favourite =>
-        favourite.user_id === this.props.currentUser.id &&
-        favourite.formula_id === this.props.formula.id
-    );
-  };
+  // isFavourite = () => {
+  //   return !!this.props.allFavourites.find(
+  //     favourite =>
+  //       favourite.user_id === this.props.currentUser.id &&
+  //       favourite.formula_id === this.props.formula.id
+  //   );
+  // };
 
   handleBookmarkClick = () => {
     this.setState({ favourite: !this.state.favourite }, () => {
@@ -54,7 +54,11 @@ class FormulaDetailsContainer extends Component {
         onClick={this.handleBookmarkClick}
         className="bookmark"
         size={"tiny"}
-        src={this.isFavourite() ? liked : unliked}
+        src={
+          this.props.isFavourite(parseInt(this.props.match.params.formulaId))
+            ? liked
+            : unliked
+        }
       />
     );
   };

@@ -225,6 +225,14 @@ class App extends Component {
 
   //============================================== favourite crud ==============================
 
+  isFavourite = selectedFormulaId => {
+    return !!this.state.favourites.find(
+      favourite =>
+        favourite.user_id === this.state.currentUser.id &&
+        favourite.formula_id === selectedFormulaId
+    );
+  };
+
   favouriteFormula = selectedFormula => {
     const favourite = {
       user_id: this.state.currentUser.id,
@@ -293,7 +301,8 @@ class App extends Component {
           render={props => (
             <FormulaDetailsContainer
               {...props}
-              allFavourites={this.state.favourites}
+              // allFavourites={this.state.favourites}
+              isFavourite={this.isFavourite}
               favourite={this.favouriteFormula}
               unfavourite={this.unfavouriteFormula}
               currentUser={this.state.currentUser}
