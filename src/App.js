@@ -109,10 +109,30 @@ class App extends Component {
     console.log(data.value);
   };
 
-  displayFilteredList = (list, searchTerm, concernName, categoryTerm) => {
+  displayFilteredIngredients = (
+    list,
+    searchTerm,
+    concernName,
+    categoryTerm
+  ) => {
     return list
       .filter(item =>
         item.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      .filter(item =>
+        item.concerns.some(concern =>
+          concern.name.toLowerCase().includes(concernName.toLowerCase())
+        )
+      )
+      .filter(item =>
+        item.category.toLowerCase().includes(categoryTerm.toLowerCase())
+      );
+  };
+
+  displayFilteredFormulas = (list, searchTerm, concernName, categoryTerm) => {
+    return list
+      .filter(item =>
+        item.title.toLowerCase().includes(searchTerm.toLowerCase())
       )
       .filter(item =>
         item.concerns.some(concern =>
@@ -205,8 +225,15 @@ class App extends Component {
           path={`/formulas`}
           render={() => (
             <ExploreContainer
-              handleChange={this.handleSearchQueryChange}
-              list={this.state.formulas}
+              handleChange={this.handleSearchChange}
+              handleDropdown={this.handleDropdownChange}
+              areas={this.state.areas}
+              list={this.displayFilteredFormulas(
+                this.state.formulas,
+                this.state.search,
+                this.state.concernSearch,
+                this.state.categorySearch
+              )}
               selectedItem={this.setSelectedFormula}
             />
           )}
@@ -263,7 +290,7 @@ class App extends Component {
               handleChange={this.handleSearchChange}
               handleDropdown={this.handleDropdownChange}
               // list={this.state.ingredients}
-              list={this.displayFilteredList(
+              list={this.displayFilteredIngredients(
                 this.state.ingredients,
                 this.state.search,
                 this.state.concernSearch,

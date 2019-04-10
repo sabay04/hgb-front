@@ -12,6 +12,7 @@ class ExploreContainer extends Component {
         <Grid columns="equal">
           <Grid.Column width={3}>
             <Filter
+              areas={this.props.areas}
               handleChange={this.props.handleChange}
               handleDropdown={this.props.handleDropdown}
             />

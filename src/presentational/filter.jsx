@@ -17,9 +17,26 @@ const ingredientCategories = [
 class Filter extends Component {
   state = {};
 
+  populateFormulaCategories = () => {
+    const formulacategories = [{ key: "All", text: "All", value: "" }];
+    this.props.areas.map(area =>
+      area.categories.map(category =>
+        formulacategories.push({
+          key: category.name,
+          text: category.name,
+          value: category.name
+        })
+      )
+    );
+
+    return formulacategories;
+  };
+
   categoryOptions = () => {
     if (window.location.pathname === "/ingredients") {
       return ingredientCategories;
+    } else {
+      return this.populateFormulaCategories();
     }
   };
 
