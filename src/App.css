@@ -380,12 +380,14 @@ a.ui.card.explore_card {
 
 /* formula details page */
 
-.ui.grid.formula_details_wrapper {
+.ui.grid.formula_details_wrapper,
+.ui.grid.ingredient_details_wrapper {
   width: 100%;
   padding: 100px;
   padding-top: 50px;
 }
-.formula_header {
+.formula_header,
+.ingredient_header {
   background-color: #f4e6de;
 
   padding: 30px;
@@ -395,7 +397,8 @@ a.ui.card.explore_card {
   height: fit-content;
 }
 
-.formula_ingredients {
+.formula_ingredients,
+.ingredeint_formula_suggestions {
   padding: 20px;
   font-family: "Tenor Sans", sans-serif;
   color: white;
@@ -406,7 +409,8 @@ a.ui.card.explore_card {
   height: fit-content;
 }
 
-.formula_directions {
+.formula_directions,
+.ingredeint_formula_description {
   padding: 20px;
   font-family: "Tenor Sans", sans-serif;
   color: white;
@@ -418,8 +422,16 @@ a.ui.card.explore_card {
   height: fit-content + 100px;
 }
 
-.formula_directions h2,
-.formula_ingredients h2 {
+/* .formula_directions h2,
+.formula_ingredients h2,
+.ingredeint_formula_description h2,
+.ingredeint_formula_suggestions h2 {
+  font-family: "Tenor Sans", sans-serif;
+  font-size: 2em;
+  font-weight: normal;
+} */
+
+.detail_info h2 {
   font-family: "Tenor Sans", sans-serif;
   font-size: 2em;
   font-weight: normal;
@@ -430,7 +442,7 @@ a.ui.card.explore_card {
   font-weight: normal;
 } */
 
-.formula_info {
+.detail_info {
   padding: 10px;
 }
 
@@ -462,7 +474,7 @@ a.ui.card.explore_card {
   margin: auto;
 }
 
-.formula_info p {
+.detail_info p {
   font-size: 1.2em;
 }
 

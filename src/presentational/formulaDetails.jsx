@@ -25,38 +25,6 @@ class FormulaDetails extends Component {
     } = this.props.formula;
 
     return (
-      // <div>
-      //   <h1>FORMULA DETAILS </h1>
-
-      //   <div className="formula-details-header">
-      //     <img src={image} alt={title} />
-      //     <h1>{title}</h1>
-      //     <h4>
-      //       By:{user_id} {area} {category}
-      //     </h4>
-      //     <p>{description}</p>
-      //     {concerns.map(concern => (
-      //       <div className="concern-tag">
-      //         <p>•{concern.name}</p>
-      //       </div>
-      //     ))}
-      //   </div>
-      //   <div className="formula-ingredients">
-      //     <h2>Ingredients</h2>
-      //     <ul>
-      //       {ingredients.map(ingredient => (
-      //         <li>
-      //           {ingredient.name} - {ingredient.percentage}%
-      //         </li>
-      //       ))}
-      //     </ul>
-      //     <div className="formula_directions">
-      //       <h2>Directions</h2>
-      //       <p>{directions}</p>
-      //     </div>
-      //   </div>
-      // </div>
-
       <Grid className="formula_details_wrapper">
         <Grid.Row>
           <Grid.Column className="formula_header">
@@ -85,7 +53,7 @@ class FormulaDetails extends Component {
           </Grid.Column>
         </Grid.Row>
 
-        <Grid.Row className="formula_info">
+        <Grid.Row className="detail_info">
           <Grid.Column className="formula_ingredients" width={4}>
             <h2>Ingredients</h2>
 

@@ -95,7 +95,6 @@ class App extends Component {
   // =========================================== filter ======================================
 
   handleSearchChange = event => {
-    event.persist();
     this.setState({
       [event.target.name]: event.target.value
     });
@@ -103,11 +102,9 @@ class App extends Component {
   };
 
   handleDropdownChange = (event, data) => {
-    event.persist();
     this.setState({
       [data.name]: data.value
     });
-    console.log(data.value);
   };
 
   displayFilteredIngredients = (
