@@ -17,7 +17,6 @@ class App extends Component {
   state = {
     formulas: [],
     ingredients: [],
-    favourites: [],
     areas: [],
     currentUser: window.localStorage.getItem("currentUser")
       ? JSON.parse(window.localStorage.getItem("currentUser"))
@@ -36,7 +35,6 @@ class App extends Component {
     API.getFormulas().then(formulas => this.setState({ formulas }));
     API.getAreas().then(areas => this.setState({ areas }));
     API.getIngredients().then(ingredients => this.setState({ ingredients }));
-    API.getFavourites().then(favourites => this.setState({ favourites }));
   }
 
   handleUser = user => {
@@ -92,23 +90,6 @@ class App extends Component {
     return this.state.ingredients.find(
       ingredient => ingredient.id === this.state.selectedIngredientId
     );
-  };
-
-  findUsersFavourites = () => {
-    const favs = [];
-    const usersfavs = this.state.favourites.filter(
-      fav => fav.user_id === this.state.currentUser.id
-    );
-
-    for (const formula in this.state.formulas) {
-      for (const userfav in usersfavs) {
-        if (this.state.formulas[formula].id === usersfavs[userfav].formula_id) {
-          favs.push(this.state.formulas[formula]);
-        }
-      }
-    }
-
-    return favs;
   };
 
   // =========================================== filter ======================================
@@ -223,10 +204,10 @@ class App extends Component {
     API.deleteFormula(formula).then(() => this.props.history.push(`/formulas`));
   };
 
-  //============================================== favourite crud ==============================
+  //============================================== favourite crud and other functions  ==============================
 
   isFavourite = selectedFormulaId => {
-    return !!this.state.favourites.find(
+    return !!this.state.currentUser.favourites.find(
       favourite =>
         favourite.user_id === this.state.currentUser.id &&
         favourite.formula_id === selectedFormulaId
@@ -240,13 +221,47 @@ class App extends Component {
     };
 
     console.log("you have favourited this:", favourite);
-    API.createFavourite(favourite).then(favourite =>
-      this.setState({ favourites: [...this.state.favourites, favourite] })
+    API.createFavourite(favourite).then(
+      favourite => {
+        const user = this.state.currentUser;
+        user.favourites = [...user.favourites, favourite];
+        this.handleUser(user);
+      }
+      // this.setState({ favourites: [...this.state.favourites, favourite] })
     );
   };
 
-  unfavouriteFormula = () => {
-    console.log("you have unfavourited this ");
+  unfavouriteFormula = selectedFormulaId => {
+    const favourite = this.state.currentUser.favourites.find(
+      fav => fav.formula_id === selectedFormulaId
+    );
+    console.log("you have unfavourited this ", favourite);
+    API.deleteFavourite(favourite).then(fav => {
+      const user = this.state.currentUser;
+      user.favourites = user.favourites.filter(
+        userFav => userFav.id !== fav.id
+      );
+      this.handleUser(user);
+    });
+  };
+
+  findUsersFavourites = () => {
+    const favs = [];
+    // const usersfavs = this.state.favourites.filter(
+    //   fav => fav.user_id === this.state.currentUser.id
+    // );
+
+    const usersfavs = this.state.currentUser.favourites;
+
+    for (const formula in this.state.formulas) {
+      for (const userfav in usersfavs) {
+        if (this.state.formulas[formula].id === usersfavs[userfav].formula_id) {
+          favs.push(this.state.formulas[formula]);
+        }
+      }
+    }
+
+    return favs;
   };
 
   // ========================================== routing =======================================

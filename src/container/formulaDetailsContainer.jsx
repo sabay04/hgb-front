@@ -19,13 +19,13 @@ class FormulaDetailsContainer extends Component {
   // };
 
   handleBookmarkClick = () => {
-    this.setState({ favourite: !this.state.favourite }, () => {
-      if (this.state.favourite) {
-        this.props.favourite(parseInt(this.props.match.params.formulaId));
-      } else {
-        this.props.unfavourite();
-      }
-    });
+    // this.setState({ favourite: !this.state.favourite }, () => {
+    if (this.props.isFavourite(parseInt(this.props.match.params.formulaId))) {
+      this.props.unfavourite(parseInt(this.props.match.params.formulaId));
+    } else {
+      this.props.favourite(parseInt(this.props.match.params.formulaId));
+    }
+    // });
   };
 
   renderOptions = () => {

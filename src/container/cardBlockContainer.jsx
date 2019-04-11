@@ -3,7 +3,7 @@ import FormulaCard from "../presentational/formulaCard";
 import IngredientCard from "../presentational/ingredientCard";
 import Filter from "../presentational/filter";
 import { Link } from "react-router-dom";
-import { Grid, Placeholder } from "semantic-ui-react";
+import { Grid, Placeholder, Loader } from "semantic-ui-react";
 // implement grid
 // app > explore > cardBlockContainer
 class CardBlockContainer extends Component {
@@ -24,6 +24,8 @@ class CardBlockContainer extends Component {
   //     });
   //   }
   // };
+
+  isFavouritesEmpty = () => {};
 
   renderFormulas = () => {
     return this.props.list.map(formula => (
@@ -74,11 +76,15 @@ class CardBlockContainer extends Component {
           </div>
         )}
 
-        <Grid doubling columns={4}>
-          {window.location.pathname === "/ingredients"
-            ? this.renderIngredients()
-            : this.renderFormulas()}
-        </Grid>
+        {this.props.list.length === 0 ? (
+          <Loader active inline="centered" />
+        ) : (
+          <Grid doubling columns={4}>
+            {window.location.pathname === "/ingredients"
+              ? this.renderIngredients()
+              : this.renderFormulas()}
+          </Grid>
+        )}
       </div>
     );
   }

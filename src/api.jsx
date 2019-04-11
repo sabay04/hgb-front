@@ -108,6 +108,17 @@ const deleteFormula = formula => {
   );
 };
 
+const deleteFavourite = favourite => {
+  const options = {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" }
+  };
+
+  return fetch(`${favouritesUrl}/${favourite.id}`, options).then(resp =>
+    resp.json()
+  );
+};
+
 // ======================================== export =========================================
 
 export default {
@@ -120,5 +131,6 @@ export default {
   getUsers,
   getIngredients,
   getAreas,
-  getFavourites
+  getFavourites,
+  deleteFavourite
 };
