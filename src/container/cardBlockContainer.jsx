@@ -68,6 +68,10 @@ class CardBlockContainer extends Component {
               Explore -<i>formulas</i>
             </h1>
           </div>
+        ) : window.location.pathname === "/profile" ? (
+          <div className="profile_title">
+            <h1>My Formulas</h1>
+          </div>
         ) : (
           <div className="page_title">
             <h1>

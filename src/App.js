@@ -10,6 +10,7 @@ import FormulaDetailsContainer from "./container/formulaDetailsContainer";
 import IngredientDetailsContainer from "./container/ingredientDetailsContainer";
 import UserProfileContainer from "./container/userProfileContainer";
 import FormulaFormContainer from "./container/formulaFormContainer";
+import Footer from "./presentational/footer";
 
 import logo from "./images/hgb.png";
 
@@ -92,6 +93,13 @@ class App extends Component {
     );
   };
 
+  // ========================================== users formulas ================================
+
+  getUsersFormulas = () => {
+    return this.state.formulas.filter(
+      formula => formula.user_id === this.state.currentUser.id
+    );
+  };
   // =========================================== filter ======================================
 
   handleSearchChange = event => {
@@ -405,7 +413,13 @@ class App extends Component {
         <Route
           exact
           path={`/profile`}
-          component={() => <UserProfileContainer />}
+          component={() => (
+            <UserProfileContainer
+              user={this.state.currentUser}
+              formulas={this.getUsersFormulas()}
+              selectedItem={this.setSelectedFormula}
+            />
+          )}
         />
       </>
     );
@@ -418,6 +432,7 @@ class App extends Component {
         {this.state.currentUser ? <MainNavContainer /> : null}
 
         <div className="app_content_wrapper">{this.routing()}</div>
+        <Footer />
       </div>
     );
   }

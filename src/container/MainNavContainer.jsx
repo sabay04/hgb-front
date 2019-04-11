@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
-import logo from "../images/nav_logo_tran.png";
-import { Container } from "semantic-ui-react";
+import logo from "../images/wordLogo.png";
+import { Container, Icon } from "semantic-ui-react";
 
 // app > main nav
 class MainNavContainer extends Component {
@@ -10,35 +10,43 @@ class MainNavContainer extends Component {
   render() {
     return (
       <Container className="nav_bar">
-        <img className="nav_logo" src={logo} alt="house of green beauty" />
-        <NavLink to="/profile" className="nav_item">
-          {" "}
-          Profile{" "}
-        </NavLink>
-        <NavLink to="/login" className="nav_item">
-          {" "}
-          Login{" "}
-        </NavLink>
-        <NavLink to="/formula/create" className="nav_item">
-          {" "}
-          Create{" "}
-        </NavLink>
-        <NavLink to="/favourites" className="nav_item">
-          {" "}
-          Favourites{" "}
-        </NavLink>
-        <NavLink to="/ingredients" className="nav_item">
-          {" "}
-          Ingredients{" "}
-        </NavLink>
-        <NavLink to="/formulas" className="nav_item">
-          {" "}
-          Formulas{" "}
-        </NavLink>
-        <NavLink to="/" className="nav_item">
-          {" "}
-          Home{" "}
-        </NavLink>
+        <div className="top_logo_nav">
+          <img className="nav_logo" src={logo} alt="house of green beauty" />
+          <NavLink to="/profile" className="top_nav_item">
+            {" "}
+            <Icon name="user" />
+          </NavLink>
+
+          <NavLink to="/login" className="top_nav_item">
+            {" "}
+            Login{" "}
+          </NavLink>
+        </div>
+
+        <div className="main_nav_bar">
+          <div className="nav_elements">
+            <NavLink to="/formula/create" className="nav_item">
+              {" "}
+              Create{" "}
+            </NavLink>
+            <NavLink to="/favourites" className="nav_item">
+              {" "}
+              Favourites{" "}
+            </NavLink>
+            <NavLink to="/ingredients" className="nav_item">
+              {" "}
+              Ingredients{" "}
+            </NavLink>
+            <NavLink to="/formulas" className="nav_item">
+              {" "}
+              Formulas{" "}
+            </NavLink>
+            <NavLink to="/" className="nav_item">
+              {" "}
+              Home{" "}
+            </NavLink>
+          </div>
+        </div>
       </Container>
     );
   }
