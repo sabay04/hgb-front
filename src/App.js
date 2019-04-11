@@ -432,7 +432,7 @@ class App extends Component {
         {this.state.currentUser ? <MainNavContainer /> : null}
 
         <div className="app_content_wrapper">{this.routing()}</div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }

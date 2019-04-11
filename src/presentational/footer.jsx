@@ -5,9 +5,9 @@ const Footer = () => {
   return (
     <Container className="footer">
       <div className="footer_elements">
-        <Icon name="instagram" />
-        <Icon name="facebook square" />
-        <Icon name="pinterest square" />
+        <Icon size="large" name="instagram" />
+        <Icon size="large" name="facebook square" />
+        <Icon size="large" name="pinterest square" />
       </div>
     </Container>
   );
