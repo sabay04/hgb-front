@@ -12,7 +12,7 @@ class HomeContainer extends Component {
       <Container className="home_wrapper">
         <div className="image_wrapper">
           <Image className="home_main_image" src={homeBotanic} alt="leaves" />
-          <div class="image_text-centered">PURE • CLEAN • POWERFULL</div>
+          <div class="image_text-centered">PURE • CLEAN • POWERFUL</div>
         </div>
         <Grid className="home_grid">
           <Grid.Row className="home_row" column={3}>

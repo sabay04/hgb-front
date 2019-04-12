@@ -248,6 +248,7 @@ div.ui.container.formula_form {
 
 .add_ingredient_title {
   float: left;
+  width: 100%;
   margin: 30px 0;
   margin-left: 20px;
 }
@@ -569,6 +570,7 @@ a.ui.card.explore_card {
 
 .bookmark {
   margin-top: 15px;
+  margin-left: 20px;
 }
 
 /* home page  */
@@ -595,15 +597,48 @@ img.ui.image.home_main_image {
 
 div.image_text-centered {
   font-family: "Tenor Sans", sans-serif;
-  font-size: 2em;
   /* change font size based on screen size */
   font-weight: normal;
-
   color: white;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-35%, -50%);
+}
+
+/* SMARTPHONES PORTRAIT */
+@media only screen and (min-width: 300px) {
+  div.image_text-centered {
+    font-size: 1em;
+  }
+}
+
+/* SMARTPHONES LANDSCAPE */
+@media only screen and (min-width: 480px) {
+  div.image_text-centered {
+    font-size: 1.5em;
+  }
+}
+
+/* TABLETS PORTRAIT */
+@media only screen and (min-width: 768px) {
+  div.image_text-centered {
+    font-size: 1.8em;
+  }
+}
+
+/* TABLET LANDSCAPE / DESKTOP */
+@media only screen and (min-width: 1024px) {
+  div.image_text-centered {
+    font-size: 2.5em;
+  }
+}
+
+/* Large screens ----------- */
+@media only screen and (min-width: 1824px) {
+  div.image_text-centered {
+    font-size: 5em;
+  }
 }
 
 .home_grid {
@@ -678,3 +713,14 @@ div.image_text-centered {
   left: 50%;
   transform: translate(-35%, -50%);
 } */
+
+div.ui.sepiaSkin.progress .bar {
+  background-color: #a3593f;
+  /* background-color: #245442; */
+}
+
+div.ui.sepiaSkin.progress {
+  background-color: white;
+  margin: 15px;
+  padding: 0px 100px;
+}

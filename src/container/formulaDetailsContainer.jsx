@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import FormulaDetails from "../presentational/formulaDetails";
 import { Link } from "react-router-dom";
-import { Dimmer, Loader, Image, Segment } from "semantic-ui-react";
-import liked from "../images/liked.png";
-import unliked from "../images/unliked.png";
+import { Dimmer, Loader, Image, Segment, Popup } from "semantic-ui-react";
+import liked from "../images/likeHeart.png";
+import unliked from "../images/unlikeHeart.png";
 // app > formula details container
 class FormulaDetailsContainer extends Component {
   state = {
@@ -22,8 +22,10 @@ class FormulaDetailsContainer extends Component {
     // this.setState({ favourite: !this.state.favourite }, () => {
     if (this.props.isFavourite(parseInt(this.props.match.params.formulaId))) {
       this.props.unfavourite(parseInt(this.props.match.params.formulaId));
+      // unfavourite message
     } else {
       this.props.favourite(parseInt(this.props.match.params.formulaId));
+      // favourite message
     }
     // });
   };
@@ -50,10 +52,15 @@ class FormulaDetailsContainer extends Component {
 
   renderBookmark = () => {
     return (
+      //       <Popup
+      //   trigger={<Button icon='add' />}
+      //   content="The default theme's basic popup removes the pointing arrow."
+      //   basic
+      // />
       <Image
         onClick={this.handleBookmarkClick}
         className="bookmark"
-        size={"tiny"}
+        size={"mini"}
         src={
           this.props.isFavourite(parseInt(this.props.match.params.formulaId))
             ? liked
