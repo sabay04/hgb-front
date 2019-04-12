@@ -51,8 +51,18 @@ class App extends Component {
     // console.log(user);
   };
 
+  logOut = () => {
+    // window.localStorage.clear();
+    this.setState({
+      currentUser: undefined
+    });
+    return this.props.history.push(`/login`);
+  };
+
   createUser = user => {
-    API.createUser(user).then(this.handleUser);
+    API.createUser(user)
+      .then(this.handleUser)
+      .then(() => this.props.history.push(`/`));
   };
 
   // ======================================== selection ========================================
@@ -85,11 +95,17 @@ class App extends Component {
     );
   };
 
-  findSelectedIngredient = () => {
-    if (this.state.selectedIngredientId === undefined) return;
+  findSelectedIngredient = selectedIngredientId => {
+    if (
+      this.state.selectedIngredientId === undefined &&
+      selectedIngredientId === undefined
+    )
+      return;
 
     return this.state.ingredients.find(
-      ingredient => ingredient.id === this.state.selectedIngredientId
+      ingredient =>
+        ingredient.id === selectedIngredientId ||
+        ingredient.id === this.state.selectedIngredientId
     );
   };
 
@@ -282,17 +298,25 @@ class App extends Component {
   routing = () => {
     return (
       <>
-        <Route exact path={`/`} component={() => <HomeContainer />} />
+        <Route exact path={`/`} render={() => <HomeContainer />} />
         <Route
           exact
           path={`/login`}
-          component={() => <SignupLoginContainer login={this.login} />}
+          render={() =>
+            this.state.currentUser ? (
+              <Redirect to="/" />
+            ) : (
+              <SignupLoginContainer login={this.login} />
+            )
+          }
         />
 
         <Route
           exact
           path={`/signup`}
-          component={() => <SignupLoginContainer />}
+          component={() => (
+            <SignupLoginContainer createUser={this.createUser} />
+          )}
         />
 
         <Route
@@ -383,9 +407,12 @@ class App extends Component {
 
         <Route
           path={`/ingredients/:ingredientId`}
-          component={() => (
+          component={props => (
             <IngredientDetailsContainer
-              ingredient={this.findSelectedIngredient()}
+              {...props}
+              ingredient={this.findSelectedIngredient(
+                parseInt(props.match.params.ingredientId)
+              )}
             />
           )}
         />
@@ -429,9 +456,17 @@ class App extends Component {
     return (
       <div className="App">
         {/* conditionally rendering the nav bar  */}
-        {this.state.currentUser ? <MainNavContainer /> : null}
+        {this.state.currentUser ? (
+          <MainNavContainer
+            logout={this.logOut}
+            user={this.state.currentUser}
+          />
+        ) : null}
 
-        <div className="app_content_wrapper">{this.routing()}</div>
+        <div className="app_content_wrapper">
+          {this.routing()} <Footer />
+        </div>
+
         {/* <Footer /> */}
       </div>
     );

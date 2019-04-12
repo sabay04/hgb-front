@@ -17,10 +17,21 @@ class MainNavContainer extends Component {
             <Icon name="user" />
           </NavLink>
 
-          <NavLink to="/login" className="top_nav_item">
-            {" "}
-            Login{" "}
-          </NavLink>
+          {this.props.user ? (
+            <NavLink
+              // onClick={this.props.logout}
+              to="/login"
+              className="top_nav_item"
+            >
+              {" "}
+              Logout{" "}
+            </NavLink>
+          ) : (
+            <NavLink to="/login" className="top_nav_item">
+              {" "}
+              Login{" "}
+            </NavLink>
+          )}
         </div>
 
         <div className="main_nav_bar">

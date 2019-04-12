@@ -12,7 +12,7 @@ class SignupForm extends Component {
 
   signup = () => {
     const newUser = this.state;
-    // call create new user
+    this.props.createUser(newUser);
   };
 
   handleFormChange = event => {

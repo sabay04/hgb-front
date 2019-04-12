@@ -20,8 +20,6 @@ const login = user => {
     })
   };
 
-  const createUser = user => {};
-
   return fetch(loginUrl, options).then(resp => resp.json());
 };
 
@@ -56,6 +54,18 @@ const getFunction = url => {
 };
 
 // =========================================POST FUNCTIONS  =======================================================
+
+const createUser = user => {
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(user)
+  };
+
+  return fetch(usersUrl, options).then(resp => resp.json());
+};
 
 const createFormula = formula => {
   const options = {
@@ -132,5 +142,6 @@ export default {
   getIngredients,
   getAreas,
   getFavourites,
-  deleteFavourite
+  deleteFavourite,
+  createUser
 };

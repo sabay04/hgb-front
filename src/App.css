@@ -10,17 +10,20 @@ body {
   position: absolute;
   bottom: 0px;
   top: 0px;
-  overflow: auto;
-  overflow: scroll; */
+ 
+  /* overflow: scroll; */
   /* background-color: #faefea; */
-
-  /* min-height: 100%; */
+  /* overflow: auto; */
+  min-height: 100%;
   width: 100%;
 }
 
 .app_content_wrapper {
-  position: fixed;
-  top: 225px;
+  /* height: fit-content; */
+  position: relative;
+  top: 190px;
+  overflow: auto;
+  min-height: 100vh;
   /* height: auto; */
 }
 
@@ -156,7 +159,7 @@ label {
 
 .top_logo_nav {
   background-color: #f4e6dd;
-  position: fixed;
+  position: relative;
   top: 0px;
   left: 0px;
   width: 100vw;
@@ -167,11 +170,12 @@ label {
 
 div.ui.container.nav_bar {
   height: fit-content;
+  width: 100%;
   display: flex;
 }
 .main_nav_bar {
   background-color: white;
-  position: fixed;
+  position: absolute;
   top: 100px;
   text-align: center;
   left: 0px;
@@ -188,7 +192,7 @@ div.ui.container.nav_bar {
   width: 250px;
   margin: auto;
   /* margin-left: auto; */
-  position: fixed;
+  position: relative;
   left: 44%;
   top: -40px;
   height: 200px;
@@ -224,7 +228,8 @@ a.nav_item:hover {
 .formula_form_wrapper {
   background-color: #e6c7b6;
   width: 100vw;
-  height: 100vh;
+  height: fit-content;
+  padding-bottom: 2.5rem;
   display: flex;
 }
 
@@ -362,13 +367,22 @@ button {
 
 .ui.container.footer {
   background-color: #f4e6dd;
-  position: fixed;
-  bottom: 0px;
+  margin-top: 30px;
+  /* position: relative; */
+  /* height: 10%; */
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  /* bottom: -70px;
+
   left: 0px;
   width: 100%;
   height: 50px;
   display: flex;
-  justify-content: center;
+  justify-content: center; */
 }
 
 .footer_elements {
@@ -440,6 +454,8 @@ a.ui.card.explore_card {
 .explore_page {
   width: 100%;
   height: 100%;
+  padding-bottom: 10px;
+  margin-bottom: 100px;
 }
 
 .ui.equal.width.grid {
@@ -538,6 +554,11 @@ a.ui.card.explore_card {
   font-weight: normal;
 }
 
+.loader_wrapper {
+  width: 100vw;
+  display: flex;
+}
+
 .loader {
   margin: auto;
 }
@@ -555,6 +576,8 @@ a.ui.card.explore_card {
 .ui.container.home_wrapper {
   width: 100%;
   height: 100vh;
+  padding-bottom: 10px;
+  margin-bottom: 200px;
 }
 
 .image_wrapper {
@@ -572,7 +595,8 @@ img.ui.image.home_main_image {
 
 div.image_text-centered {
   font-family: "Tenor Sans", sans-serif;
-  font-size: 4em;
+  font-size: 2em;
+  /* change font size based on screen size */
   font-weight: normal;
 
   color: white;

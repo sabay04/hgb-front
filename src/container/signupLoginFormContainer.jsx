@@ -14,7 +14,7 @@ class SignupLoginFormContainer extends Component {
           {window.location.pathname === "/login" ? (
             <LoginForm login={this.props.login} />
           ) : (
-            <SignupForm />
+            <SignupForm createUser={this.props.createUser} />
           )}
         </Container>
       </>
