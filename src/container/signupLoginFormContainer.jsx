@@ -12,9 +12,9 @@ class SignupLoginFormContainer extends Component {
         {/* <img className="welcome_logo" src={logo} alt="house of green beauty" /> */}
         <Container className="form_cont">
           {window.location.pathname === "/login" ? (
-            <LoginForm login={this.props.login} />
+            <LoginForm setUser={this.props.setUser} />
           ) : (
-            <SignupForm createUser={this.props.createUser} />
+            <SignupForm setUser={this.props.setUser} />
           )}
         </Container>
       </>

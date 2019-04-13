@@ -19,9 +19,7 @@ class App extends Component {
     formulas: [],
     ingredients: [],
     areas: [],
-    currentUser: window.localStorage.getItem("currentUser")
-      ? JSON.parse(window.localStorage.getItem("currentUser"))
-      : undefined,
+    currentUser: undefined,
     selectedIngredientId: undefined,
     selectedFormulaId: undefined,
     search: "",
@@ -33,37 +31,71 @@ class App extends Component {
   // ============================ set up ======================================================
 
   componentDidMount() {
-    API.getFormulas().then(formulas => this.setState({ formulas }));
-    API.getAreas().then(areas => this.setState({ areas }));
-    API.getIngredients().then(ingredients => this.setState({ ingredients }));
+    this.setUser();
   }
 
-  handleUser = user => {
-    window.localStorage.setItem("currentUser", JSON.stringify(user));
-    this.setState({ currentUser: user });
-  };
+  // handleUser = user => {
+  //   window.localStorage.setItem("currentUser", JSON.stringify(user));
+  //   this.setState({ currentUser: user });
+  // };
 
-  // ======================================== Login ============================================
-  login = user => {
-    API.login(user)
-      .then(this.handleUser)
-      .then(() => this.props.history.push(`/`));
-    // console.log(user);
-  };
+  // ======================================== Login/ auth ============================================
 
-  logOut = () => {
-    // window.localStorage.clear();
-    this.setState({
-      currentUser: undefined
+  setUser = () => {
+    API.getProfile().then(userObject => {
+      if (userObject.error) {
+        this.logout();
+        this.props.history.push(`/login`);
+      } else {
+        this.setState({ currentUser: userObject.user });
+        API.getFormulas().then(formulas => this.setState({ formulas }));
+        API.getAreas().then(areas => this.setState({ areas }));
+        API.getIngredients().then(ingredients =>
+          this.setState({ ingredients })
+        );
+        // this.props.history.push("/");
+      }
     });
-    return this.props.history.push(`/login`);
   };
 
-  createUser = user => {
-    API.createUser(user)
-      .then(this.handleUser)
-      .then(() => this.props.history.push(`/`));
+  logout = () => {
+    localStorage.removeItem("token");
+    this.setState({
+      formulas: [],
+      ingredients: [],
+      areas: [],
+      currentUser: undefined,
+      selectedIngredientId: undefined,
+      selectedFormulaId: undefined,
+      search: "",
+      concernSearch: "",
+      categorySearch: "",
+      areaSearch: ""
+    });
+    // window.location.reload();
+    this.props.history.push("/login");
   };
+
+  // login = user => {
+  //   API.login(user)
+  //     .then(this.handleUser)
+  //     .then(() => this.props.history.push(`/`));
+  //   // console.log(user);
+  // };
+
+  // logOut = () => {
+  //   // window.localStorage.clear();
+  //   this.setState({
+  //     currentUser: undefined
+  //   });
+  //   return this.props.history.push(`/login`);
+  // };
+
+  // createUser = user => {
+  //   API.createUser(user)
+  //     .then(this.handleUser)
+  //     .then(() => this.props.history.push(`/`));
+  // };
 
   // ======================================== selection ========================================
 
@@ -306,7 +338,7 @@ class App extends Component {
             this.state.currentUser ? (
               <Redirect to="/" />
             ) : (
-              <SignupLoginContainer login={this.login} />
+              <SignupLoginContainer setUser={this.setUser} />
             )
           }
         />
@@ -314,9 +346,13 @@ class App extends Component {
         <Route
           exact
           path={`/signup`}
-          component={() => (
-            <SignupLoginContainer createUser={this.createUser} />
-          )}
+          component={() =>
+            this.state.currentUser ? (
+              <Redirect to="/" />
+            ) : (
+              <SignupLoginContainer setUser={this.setUser} />
+            )
+          }
         />
 
         <Route
@@ -456,12 +492,13 @@ class App extends Component {
     return (
       <div className="App">
         {/* conditionally rendering the nav bar  */}
-        {this.state.currentUser ? (
+        {/* {this.state.currentUser ? (
           <MainNavContainer
             logout={this.logOut}
             user={this.state.currentUser}
           />
-        ) : null}
+        ) : null} */}
+        <MainNavContainer logout={this.logout} user={this.state.currentUser} />
 
         <div className="app_content_wrapper">
           {this.routing()} <Footer />

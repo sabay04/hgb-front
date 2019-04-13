@@ -19,7 +19,7 @@ class MainNavContainer extends Component {
 
           {this.props.user ? (
             <NavLink
-              // onClick={this.props.logout}
+              onClick={this.props.logout}
               to="/login"
               className="top_nav_item"
             >

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Form, Container, Divider } from "semantic-ui-react";
 import logo from "../images/hgb.png";
+import API from "../api";
 
 class SignupForm extends Component {
   state = {
@@ -12,7 +13,14 @@ class SignupForm extends Component {
 
   signup = () => {
     const newUser = this.state;
-    this.props.createUser(newUser);
+    API.createUser(newUser).then(userObject => {
+      loginSetUser(userObject);
+    });
+    const loginSetUser = userObject => {
+      let token = userObject.token;
+      localStorage.setItem("token", token);
+      this.props.setUser();
+    };
   };
 
   handleFormChange = event => {

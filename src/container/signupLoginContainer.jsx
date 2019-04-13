@@ -17,7 +17,7 @@ class SignupLoginContainer extends Component {
           <div className="form_cont_wrapper">
             <SignupLoginFormContainer
               createUser={this.props.createUser}
-              login={this.props.login}
+              setUser={this.props.setUser}
             />
           </div>
         </div>

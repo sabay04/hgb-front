@@ -3,26 +3,47 @@ const formulasUrl = `${baseUrl}/formulas`;
 const usersUrl = `${baseUrl}/users`;
 const ingredientsUrl = `${baseUrl}/ingredients`;
 const areasUrl = `${baseUrl}/areas`;
-const loginUrl = `${baseUrl}/login`;
 const favouritesUrl = `${baseUrl}/favourites`;
+const profileUrl = `${baseUrl}/profile`;
+const loginUrl = `${baseUrl}/login`;
 
-// ============================ GET FUNCTIONS =========================================
+// ============================ Auth/Login functions =========================================
 
-const login = user => {
+const loginPost = user => {
+  return loginCall(loginUrl, user);
+};
+
+const loginCall = (url, user) => {
   const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: localStorage.getItem("token")
+      Accept: "application/json"
     },
-    body: JSON.stringify({
-      user
-    })
+    body: JSON.stringify(user)
   };
-
-  return fetch(loginUrl, options).then(resp => resp.json());
+  return fetch(url, options).then(resp => resp.json());
 };
 
+const getProfile = () => {
+  return getFunction(profileUrl);
+};
+
+// const login = user => {
+//   const options = {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify({
+//       user
+//     })
+//   };
+
+//   return fetch(loginUrl, options).then(resp => resp.json());
+// };
+
+// ============================ GET FUNCTIONS =========================================
 const getFormulas = () => {
   return getFunction(formulasUrl);
 };
@@ -31,9 +52,9 @@ const getIngredients = () => {
   return getFunction(ingredientsUrl);
 };
 
-const getUsers = () => {
-  return getFunction(usersUrl);
-};
+// const getUsers = () => {
+//   return getFunction(usersUrl);
+// };
 
 const getAreas = () => {
   return getFunction(areasUrl);
@@ -44,17 +65,18 @@ const getFavourites = () => {
 };
 
 const getFunction = url => {
-  // const options = {
-  //   method: "GET",
-  //   headers: {
-  //     Authorization: localStorage.getItem("token")
-  //   }
-  // };
-  return fetch(url).then(resp => resp.json());
+  const options = {
+    method: "GET",
+    headers: {
+      Authorization: localStorage.getItem("token")
+    }
+  };
+  return fetch(url, options).then(resp => resp.json());
 };
 
 // =========================================POST FUNCTIONS  =======================================================
 
+//create user doesnt authorize a token because there isnt one at this point
 const createUser = user => {
   const options = {
     method: "POST",
@@ -71,7 +93,8 @@ const createFormula = formula => {
   const options = {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token")
     },
     body: JSON.stringify(formula)
   };
@@ -83,7 +106,8 @@ const createFavourite = favourite => {
   const options = {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token")
     },
     body: JSON.stringify(favourite)
   };
@@ -95,7 +119,11 @@ const createFavourite = favourite => {
 const editFormula = formula => {
   const options = {
     method: "PATCH",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token")
+    },
+
     body: JSON.stringify({
       formula
     })
@@ -110,7 +138,10 @@ const editFormula = formula => {
 const deleteFormula = formula => {
   const options = {
     method: "DELETE",
-    headers: { "Content-Type": "application/json" }
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token")
+    }
   };
 
   return fetch(`${formulasUrl}/${formula.id}`, options).then(resp =>
@@ -121,7 +152,10 @@ const deleteFormula = formula => {
 const deleteFavourite = favourite => {
   const options = {
     method: "DELETE",
-    headers: { "Content-Type": "application/json" }
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token")
+    }
   };
 
   return fetch(`${favouritesUrl}/${favourite.id}`, options).then(resp =>
@@ -136,12 +170,12 @@ export default {
   deleteFormula,
   editFormula,
   createFormula,
-  login,
+  loginPost,
   getFormulas,
-  getUsers,
   getIngredients,
   getAreas,
   getFavourites,
   deleteFavourite,
-  createUser
+  createUser,
+  getProfile
 };

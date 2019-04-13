@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Form, Container, Divider } from "semantic-ui-react";
 import logo from "../images/hgb.png";
+import API from "../api";
 
 class LoginForm extends Component {
   state = {
@@ -9,12 +10,17 @@ class LoginForm extends Component {
     password: ""
   };
 
-  handleSubmit = event => {
+  login = event => {
     event.preventDefault();
     const currentUser = this.state;
-    // find current user
-
-    this.props.login(currentUser);
+    API.loginPost(currentUser).then(userObject => {
+      loginSetUser(userObject);
+    });
+    const loginSetUser = userObject => {
+      let token = userObject.token;
+      localStorage.setItem("token", token);
+      this.props.setUser();
+    };
   };
 
   handleFormChange = event => {
@@ -31,7 +37,7 @@ class LoginForm extends Component {
           <h1 className="form_title">Login</h1>
           <Form
             className="login_form"
-            onSubmit={this.handleSubmit}
+            onSubmit={this.login}
             onChange={this.handleFormChange}
           >
             <Form.Field required>
