@@ -715,8 +715,8 @@ div.image_text-centered {
 } */
 
 div.ui.sepiaSkin.progress .bar {
-  background-color: #a3593f;
-  /* background-color: #245442; */
+  /* background-color: #a3593f; */
+  background-color: #245442;
 }
 
 div.ui.sepiaSkin.progress {
