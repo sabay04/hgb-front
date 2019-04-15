@@ -60,7 +60,7 @@ class FormulaDetails extends Component {
       area,
       ingredients,
       concerns,
-      user_id
+      user
     } = this.props.formula;
 
     return (
@@ -78,7 +78,8 @@ class FormulaDetails extends Component {
               <h1>{title}</h1>
 
               <h3>
-                By: {user_id} &nbsp; Area: {area} &nbsp; Category: {category}
+                By: {user.username} &nbsp; Area: {area} &nbsp; Category:{" "}
+                {category}
               </h3>
 
               <p>{description}</p>

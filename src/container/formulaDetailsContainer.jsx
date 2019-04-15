@@ -31,7 +31,7 @@ class FormulaDetailsContainer extends Component {
   };
 
   renderOptions = () => {
-    if (this.props.currentUser.id === this.props.formula.user_id) {
+    if (this.props.currentUser.id === this.props.formula.user.id) {
       return this.renderEditorDelete();
     } else {
       return this.renderBookmark();
