@@ -96,6 +96,8 @@ class FormulaForm extends Component {
     }
   };
 
+  //==================================== form changes ===============================
+
   // handlePercentChange = event => {
   //   // if (["percentage"].includes(event.target.name)) {
   //   //   let ingredients = [...this.state.ingredients];
@@ -207,22 +209,31 @@ class FormulaForm extends Component {
         <h1 className="formula_form_title">Create a new formula</h1>
         <Form
           className="formula_form"
-          // onSubmit={this.handleSubmit}
+          onSubmit={this.handleSubmit}
           onChange={this.handleFormChange}
         >
           <Form.Field>
             <label>Title</label>
-            <input type="text" name="title" placeholder="Title" />
+            <input
+              type="text"
+              name="title"
+              placeholder="Title"
+              value={this.state.title}
+            />
           </Form.Field>
 
           <Form.Field>
             <label>Description</label>
-            <textarea name="description" placeholder="Description" />
+            <textarea
+              name="description"
+              placeholder="Description"
+              value={this.state.description}
+            />
           </Form.Field>
 
           <Form.Field>
             <label>Area</label>
-            <select name="area">
+            <select name="area" value={this.state.area}>
               <option value="" disabled selected>
                 Area
               </option>
@@ -234,7 +245,7 @@ class FormulaForm extends Component {
 
           <Form.Field>
             <label>Category</label>
-            <select name="category_id">
+            <select name="category_id" value={this.state.category_id}>
               <option value="" disabled selected>
                 Category
               </option>
@@ -294,7 +305,7 @@ class FormulaForm extends Component {
                       min="0"
                       max="100"
                       placeholder="Percentage"
-                      // value={ingredient.percentage}
+                      value={ingredient.percentage}
                     />
                   </Form.Field>
                   <Form.Field>
@@ -312,7 +323,11 @@ class FormulaForm extends Component {
 
           <Form.Field>
             <label>Directions</label>
-            <textarea name="directions" placeholder="Directions" />
+            <textarea
+              name="directions"
+              placeholder="Directions"
+              value={this.state.directions}
+            />
           </Form.Field>
           <br />
           <label>Concerns</label>
@@ -325,6 +340,7 @@ class FormulaForm extends Component {
               multiple
               search
               selection
+              color={"red"}
               options={this.state.area ? this.getAreaConcerns() : null}
               placeholder="Select the concerns this formula helps"
             />
@@ -369,7 +385,7 @@ class FormulaForm extends Component {
               ingredients in the formula should add up to 100%
             </Message>
           ) : null}
-          <button onSubmit={this.handleSubmit} className="submit" type="submit">
+          <button className="submit" type="submit">
             {" "}
             Create{" "}
           </button>

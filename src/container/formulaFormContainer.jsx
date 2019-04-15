@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import FormulaForm from "../presentational/formulaForm";
 import EditFormula from "../presentational/editFormula";
+import { Loader } from "semantic-ui-react";
 // app  > formula form container
 
 class FormulaFormContainer extends Component {
@@ -27,6 +28,15 @@ class FormulaFormContainer extends Component {
     }
   };
   render() {
+    if (
+      this.props.match.path === `/formulas/:formulaId/edit` &&
+      !this.props.selectedFormula
+    )
+      return (
+        <Loader className="loader" active inline="centered" size="large">
+          Loading
+        </Loader>
+      );
     return (
       <div className="formula_form_wrapper">{this.whichFormToRender()}</div>
     );

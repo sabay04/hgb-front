@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Form, Container, Dropdown } from "semantic-ui-react";
+import {
+  Form,
+  Container,
+  Dropdown,
+  Message,
+  Progress,
+  Image,
+  Divider
+} from "semantic-ui-react";
 
 class EditFormula extends Component {
   state = {
@@ -31,42 +39,59 @@ class EditFormula extends Component {
     }
   };
 
+  //================================ percentage =================================
+  sum = (array, key) => {
+    return array.reduce(function(r, a) {
+      return parseInt(r) + parseInt(a[key]);
+    }, 0);
+  };
+
+  // sum = key => {
+  //   return this.reduce((a, b) => a + (b[key] || 0), 0);
+  // };
+
+  checkIngredientsPercentage = () => {
+    const sum = this.sum(this.state.ingredients, "percentage");
+
+    if (sum > 100) {
+      return true;
+    }
+  };
+
+  // ============================== form changes =====================================
+
   handleFormChange = event => {
     // console.log(event.target.name);
-    if (["name", "percentage"].includes(event.target.name)) {
+    if (["percentage"].includes(event.target.name)) {
       let ingredients = [...this.state.ingredients];
-      ingredients[event.target.dataset.id][event.target.name] =
-        event.target.value;
+      ingredients[event.target.dataset.id][event.target.name] = parseInt(
+        event.target.value
+      );
       this.setState({ ingredients });
+      this.checkIngredientsPercentage();
     } else {
       this.setState({ [event.target.name]: event.target.value });
     }
   };
 
-  // handleFormChange = event => {
-  //   this.setState({
-  //     [event.target.name]: event.target.value
-  //   });
-  // };
+  handleIngredientname = (event, data) => {
+    console.log(data);
+    let ingredients = [...this.state.ingredients];
+    ingredients[data.id][data.name] = data.value;
+    this.setState({ ingredients });
+  };
 
   handleSubmit = event => {
     event.preventDefault();
     const newFormula = this.state;
     this.props.editFormula(newFormula);
-
-    // .then(() => {
-    //   this.setState({
-    //     title: "",
-    //     description: "",
-    //     area: "",
-    //     category: "",
-    //     ingredients: [],
-    //     directions: "",
-    //     concerns: [],
-    //     image: ""
-    //   });
-    // });
   };
+
+  handleConcerns = (event, data) => {
+    this.setState({ concerns: data.value });
+  };
+
+  // =================================== populate drop downs ==========================
 
   getAreaCategories = () => {
     if (!this.state.area) return null;
@@ -82,25 +107,52 @@ class EditFormula extends Component {
     ));
   };
 
+  // getAreaConcerns = () => {
+  //   if (!this.state.area) return null;
+
+  //   const selectedArea = this.props.areas.find(
+  //     area => area.name === this.state.area
+  //   );
+
+  //   if (!selectedArea) return null;
+
+  //   return selectedArea.concerns.map(
+  //     (concern, index) => <option value={concern.name}>{concern.name} </option>
+  //     // ({ key: index, text: concern.name, value: concern.id, name: "concerns" })
+  //   );
+  // };
+
   getAreaConcerns = () => {
-    if (!this.state.area) return null;
+    if (this.state.area === undefined) return;
 
     const selectedArea = this.props.areas.find(
       area => area.name === this.state.area
     );
-
-    if (!selectedArea) return null;
-
-    return selectedArea.concerns.map(
-      (concern, index) => <option value={concern.name}>{concern.name} </option>
-      // ({ key: index, text: concern.name, value: concern.id, name: "concerns" })
+    return selectedArea.concerns.map((concern, index) =>
+      //  <option value={concern.name}>{concern.name} </option>
+      ({ key: concern.name, text: concern.name, value: concern.id })
     );
   };
+
+  createIngredientList = () => {
+    return this.props.ingredients.map(ing => ({
+      key: ing.name,
+      text: ing.name,
+      value: ing.name
+    }));
+  };
+
+  addConcernTags = () => {
+    const concerns = [];
+    this.props.selectedFormula.concerns.map();
+  };
+
+  // ====================================== add new ingredient=====================================
 
   addIngredient = event => {
     event.preventDefault();
     this.setState({
-      ingredients: [...this.state.ingredients, { name: "", percent: "" }]
+      ingredients: [...this.state.ingredients, { name: "", percentage: "" }]
     });
   };
 
@@ -168,6 +220,17 @@ class EditFormula extends Component {
             <button id="add_ingredient" onClick={this.addIngredient}>
               Add Ingredient +
             </button>
+
+            {this.checkIngredientsPercentage() ? (
+              <Message color="violet">
+                The total of your ingredients can not exceed 100%
+              </Message>
+            ) : null}
+            <Progress
+              percent={this.sum(this.state.ingredients, "percentage")}
+              color="sepiaSkin"
+              progress
+            />
           </div>
 
           <div className="ingredient_form">
@@ -177,7 +240,7 @@ class EditFormula extends Component {
                   {
                     <Form.Field>
                       <label>Ingredient Name</label>
-                      <select
+                      {/* <select
                         name="name"
                         data-id={index}
                         value={ingredient.name}
@@ -188,7 +251,17 @@ class EditFormula extends Component {
                         {this.props.ingredients.map(ing => (
                           <option value={ing.name}>{ing.name}</option>
                         ))}
-                      </select>
+                      </select> */}
+                      <Dropdown
+                        onChange={this.handleIngredientname}
+                        value={ingredient.name}
+                        placeholder="Select ingredeint"
+                        search
+                        id={index}
+                        name="name"
+                        selection
+                        options={this.createIngredientList()}
+                      />
                     </Form.Field>
                   }
                   <Form.Field>
@@ -197,6 +270,8 @@ class EditFormula extends Component {
                       name="percentage"
                       data-id={index}
                       type="number"
+                      min="0"
+                      max="100"
                       placeholder="Percentage"
                       value={ingredient.percentage}
                     />
@@ -223,15 +298,23 @@ class EditFormula extends Component {
             />
           </Form.Field>
 
+          {/* <label>Concerns</label>
           <Form.Field>
-            <label>Concerns</label>
-            <select name="concerns" value={this.state.concerns}>
-              <option value="" disabled selected>
-                Concerns
-              </option>
-              {this.state.area ? this.getAreaConcerns() : null}
-            </select>
-          </Form.Field>
+           
+            <Dropdown
+              onChange={this.handleConcerns}
+              name="concerns"
+              clearable
+              fluid
+              multiple
+              search
+              selection
+              value={this.state.concerns}
+              options={this.state.area ? this.getAreaConcerns() : null}
+              placeholder="Select the concerns this formula helps"
+            />
+          </Form.Field> */}
+
           {/* // concerns tags */}
           {/* <Form.Field>
             <label>Image</label>
@@ -243,6 +326,13 @@ class EditFormula extends Component {
             />
           </Form.Field> */}
           <br />
+          {this.checkIngredientsPercentage() ? (
+            <Message color="red">
+              Please adjust your formula percentages. The total of all of the
+              ingredients in the formula should add up to 100%
+            </Message>
+          ) : null}
+
           <button className="submit" type="submit">
             {" "}
             Create{" "}
