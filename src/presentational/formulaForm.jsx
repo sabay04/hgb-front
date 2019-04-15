@@ -4,8 +4,24 @@ import {
   Container,
   Dropdown,
   Message,
-  Progress
+  Progress,
+  Image,
+  Divider
 } from "semantic-ui-react";
+
+import Dropzone from "react-dropzone";
+import request from "superagent";
+// import {
+//   Image,
+//   Video,
+//   Transformation,
+//   CloudinaryContext
+// } from "cloudinary-react";
+
+const CLOUDINARY_UPLOAD_PRESET = "vgvyrowl";
+const CLOUDINARY_UPLOAD_URL =
+  "https://api.cloudinary.com/v1_1/sabay/image/upload";
+
 // app > formula form container  > formula form
 class FormulaForm extends Component {
   state = {
@@ -16,14 +32,57 @@ class FormulaForm extends Component {
     ingredients: [],
     directions: "",
     concerns: [],
-    image: ""
+    image: "",
+    imagePublicId: ""
   };
 
-  sum(array, key) {
+  // =========================================================== image upload =============================================================================
+
+  onImageDrop = files => {
+    this.setState({
+      uploadedFile: files[0]
+    });
+    console.log(files);
+    this.handleImageUpload(files[0]);
+  };
+
+  handleImageUpload = file => {
+    let upload = request
+      .post(CLOUDINARY_UPLOAD_URL)
+      .field("upload_preset", CLOUDINARY_UPLOAD_PRESET)
+      .field("file", file);
+
+    upload.end((err, response) => {
+      if (err) {
+        console.error(err);
+      }
+
+      if (response.body.secure_url !== "") {
+        this.setState({
+          image: response.body.secure_url,
+          imagePublicId: response.body.public_id
+        });
+        console.log(response);
+      }
+    });
+  };
+
+  handleRemoveImage = id => {
+    request
+      .del(CLOUDINARY_UPLOAD_URL)
+      .send({ id: id })
+      .set("Accept", "application/json")
+      .end(function(err, res) {
+        console.log(res);
+      });
+  };
+  //========================================================== percentage calculations ==============================================================
+
+  sum = (array, key) => {
     return array.reduce(function(r, a) {
       return r + a[key];
     }, 0);
-  }
+  };
 
   // sum = key => {
   //   return this.reduce((a, b) => a + (b[key] || 0), 0);
@@ -31,7 +90,7 @@ class FormulaForm extends Component {
 
   checkIngredientsPercentage = () => {
     const sum = this.sum(this.state.ingredients, "percentage");
-    console.log(sum);
+    // console.log(sum);
     if (sum > 100) {
       return true;
     }
@@ -148,7 +207,7 @@ class FormulaForm extends Component {
         <h1 className="formula_form_title">Create a new formula</h1>
         <Form
           className="formula_form"
-          onSubmit={this.handleSubmit}
+          // onSubmit={this.handleSubmit}
           onChange={this.handleFormChange}
         >
           <Form.Field>
@@ -255,33 +314,54 @@ class FormulaForm extends Component {
             <label>Directions</label>
             <textarea name="directions" placeholder="Directions" />
           </Form.Field>
-
-          <Dropdown
-            onChange={this.handleConcerns}
-            name="concerns"
-            clearable
-            fluid
-            multiple
-            search
-            selection
-            options={this.state.area ? this.getAreaConcerns() : null}
-            placeholder="Select the concerns this formula helps"
-          />
+          <br />
+          <label>Concerns</label>
+          <Form.Field>
+            <Dropdown
+              onChange={this.handleConcerns}
+              name="concerns"
+              clearable
+              fluid
+              multiple
+              search
+              selection
+              options={this.state.area ? this.getAreaConcerns() : null}
+              placeholder="Select the concerns this formula helps"
+            />
+          </Form.Field>
 
           {/* <Form.Field>
-            <label>Concerns</label>
-            <select name="concerns">
-              <option value="" disabled selected>
-                Concerns
-              </option>
-              {this.state.area ? this.getAreaConcerns() : null}
-            </select>
-          </Form.Field> */}
-          {/* // concerns tags */}
-          <Form.Field>
             <label>Image</label>
             <input type="url" name="image" placeholder="Image url" />
-          </Form.Field>
+          </Form.Field> */}
+          <div className="image_dropzone">
+            <Dropzone
+              onDrop={this.onImageDrop.bind(this)}
+              accept="image/*"
+              multiple={false}
+            >
+              {({ getRootProps, getInputProps }) => {
+                return (
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    {<h5>Drop image here</h5>}
+                    <Divider horizontal>Or</Divider>
+                    <button> Select image </button>
+                  </div>
+                );
+              }}
+            </Dropzone>
+          </div>
+
+          <div>
+            {this.state.image === "" ? null : (
+              <div>
+                <h5>{this.state.uploadedFile.name}</h5>
+                <Image size={"small"} src={this.state.image} />
+              </div>
+            )}
+          </div>
+
           <br />
           {this.checkIngredientsPercentage() ? (
             <Message color="red">
@@ -289,7 +369,7 @@ class FormulaForm extends Component {
               ingredients in the formula should add up to 100%
             </Message>
           ) : null}
-          <button className="submit" type="submit">
+          <button onSubmit={this.handleSubmit} className="submit" type="submit">
             {" "}
             Create{" "}
           </button>
