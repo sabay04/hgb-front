@@ -11,6 +11,7 @@ import IngredientDetailsContainer from "./container/ingredientDetailsContainer";
 import UserProfileContainer from "./container/userProfileContainer";
 import FormulaFormContainer from "./container/formulaFormContainer";
 import Footer from "./presentational/footer";
+import IngredientFormulaContainer from "./container/ingredientFormulaContainer";
 
 import logo from "./images/hgb.png";
 
@@ -34,10 +35,10 @@ class App extends Component {
     this.setUser();
   }
 
-  // handleUser = user => {
-  //   window.localStorage.setItem("currentUser", JSON.stringify(user));
-  //   this.setState({ currentUser: user });
-  // };
+  handleUser = user => {
+    // window.localStorage.setItem("currentUser", JSON.stringify(user));
+    this.setState({ currentUser: user });
+  };
 
   // ======================================== Login/ auth ============================================
 
@@ -397,8 +398,9 @@ class App extends Component {
         <Route
           exact
           path={`/formula/create`}
-          component={() => (
+          component={props => (
             <FormulaFormContainer
+              {...props}
               areas={this.state.areas}
               ingredients={this.state.ingredients}
               addNewFormula={this.addNewFormula}
@@ -442,6 +444,7 @@ class App extends Component {
         />
 
         <Route
+          exact
           path={`/ingredients/:ingredientId`}
           component={props => (
             <IngredientDetailsContainer
@@ -449,6 +452,20 @@ class App extends Component {
               ingredient={this.findSelectedIngredient(
                 parseInt(props.match.params.ingredientId)
               )}
+            />
+          )}
+        />
+
+        <Route
+          path={`/ingredients/:ingredientId/formulas`}
+          component={props => (
+            <IngredientFormulaContainer
+              {...props}
+              ingredient={this.findSelectedIngredient(
+                parseInt(props.match.params.ingredientId)
+              )}
+              formulas={this.state.formulas}
+              selectedItem={this.setSelectedFormula}
             />
           )}
         />

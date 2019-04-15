@@ -72,11 +72,15 @@ class CardBlockContainer extends Component {
           <div className="profile_title">
             <h1>My Formulas</h1>
           </div>
-        ) : (
+        ) : window.location.pathname === `/favourites` ? (
           <div className="page_title">
             <h1>
               Explore -<i>favourites</i>
             </h1>
+          </div>
+        ) : (
+          <div className="page_title">
+            <h1>Explore</h1>
           </div>
         )}
 

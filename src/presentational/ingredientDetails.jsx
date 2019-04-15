@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card, Image, Label, Grid } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
 const tagColours = ["tan", "plantation", "sepiaSkin", "oxley"];
 
@@ -21,7 +22,8 @@ class IngredientDetails extends Component {
       description,
       scientific_name,
       category,
-      concerns
+      concerns,
+      id
     } = this.props.ingredient;
 
     return (
@@ -35,6 +37,11 @@ class IngredientDetails extends Component {
               floated="left"
               className="Ingredient_view_image"
             />
+            <div className="ingredient_buttons">
+              <Link to={`/ingredients/${id}/formulas`}>
+                <button>view formulas</button>
+              </Link>
+            </div>
             <div className="header_content">
               <h1>{name}</h1>
               <h4>{category}</h4>

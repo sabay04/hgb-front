@@ -80,7 +80,7 @@ class FormulaForm extends Component {
 
   sum = (array, key) => {
     return array.reduce(function(r, a) {
-      return r + a[key];
+      return parseInt(r) + parseInt(a[key]);
     }, 0);
   };
 
@@ -90,7 +90,7 @@ class FormulaForm extends Component {
 
   checkIngredientsPercentage = () => {
     const sum = this.sum(this.state.ingredients, "percentage");
-    // console.log(sum);
+    console.log(sum);
     if (sum > 100) {
       return true;
     }
@@ -115,9 +115,9 @@ class FormulaForm extends Component {
     // console.log(event.target.name);
     if (["percentage"].includes(event.target.name)) {
       let ingredients = [...this.state.ingredients];
-      ingredients[event.target.dataset.id][event.target.name] = parseInt(
-        event.target.value
-      );
+      ingredients[event.target.dataset.id][event.target.name] =
+        event.target.value;
+
       this.setState({ ingredients });
       this.checkIngredientsPercentage();
     } else {

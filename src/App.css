@@ -741,3 +741,7 @@ div.ui.sepiaSkin.progress {
 .image_dropzone h5 {
   color: grey;
 }
+
+.ingredient_buttons {
+  float: right;
+}

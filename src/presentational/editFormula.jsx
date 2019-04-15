@@ -64,9 +64,8 @@ class EditFormula extends Component {
     // console.log(event.target.name);
     if (["percentage"].includes(event.target.name)) {
       let ingredients = [...this.state.ingredients];
-      ingredients[event.target.dataset.id][event.target.name] = parseInt(
-        event.target.value
-      );
+      ingredients[event.target.dataset.id][event.target.name] =
+        event.target.value;
       this.setState({ ingredients });
       this.checkIngredientsPercentage();
     } else {
