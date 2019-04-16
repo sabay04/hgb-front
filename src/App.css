@@ -72,11 +72,23 @@ body {
 }
 
 .welcome_display_wrapper {
-  background-color: #e6c7b6;
-  height: 100vh;
+  background-color: #d5d6d0;
+  /* background-image: url(images/outlinebackground.svg); */
+  background-image: url(images/background.svg);
+
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 100%;
   width: 50vw;
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.container.login_wrapper {
+  display: flex;
   justify-content: center;
 }
 
@@ -106,6 +118,7 @@ div.ui.container.form_cont {
   background-color: white;
   /* position: absolute; */
   padding: 60px;
+  display: flex;
   /* box-shadow: 0px 5px 15px 0px rgba(14, 33, 26, 0.3); */
 }
 
@@ -119,7 +132,7 @@ div.ui.container.form_cont {
 button.submit {
   background-color: #7f9c91;
   border: none;
-
+  margin: 10px 40%;
   padding: 10px;
   padding-left: 15px;
   padding-right: 15px;
@@ -131,11 +144,13 @@ button.submit {
 
 button.option {
   background-color: white;
+  border: 2px solid;
   border-color: #7f9c91;
+  margin: 10px 40%;
   border-width: 3px;
   padding: 10px;
   font-family: "Tenor Sans", sans-serif;
-  font-size: 1.5em;
+  font-size: 1.3em;
   color: #7f9c91;
   border-radius: 4px;
 }

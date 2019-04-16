@@ -40,7 +40,7 @@ class UserDetails extends Component {
             <Image src={this.props.user.image} size="medium" circular />
           )}
           <Header.Content>
-            {this.props.user.username} <br /> {this.props.user.email}
+            {this.props.user.username} <br /> <i>{this.props.user.email}</i>
           </Header.Content>
         </Header>
       </Container>

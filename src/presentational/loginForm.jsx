@@ -31,7 +31,7 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <Container>
+      <Container className="login_wrapper">
         <img className="welcome_logo" src={logo} alt="house of green beauty" />
         <div className="login_form_cont">
           <h1 className="form_title">Login</h1>

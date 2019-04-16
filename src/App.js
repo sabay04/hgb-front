@@ -509,17 +509,22 @@ class App extends Component {
     return (
       <div className="App">
         {/* conditionally rendering the nav bar  */}
-        {/* {this.state.currentUser ? (
+        {this.state.currentUser ? (
           <MainNavContainer
-            logout={this.logOut}
+            logout={this.logout}
             user={this.state.currentUser}
           />
-        ) : null} */}
-        <MainNavContainer logout={this.logout} user={this.state.currentUser} />
+        ) : null}
 
-        <div className="app_content_wrapper">
-          {this.routing()} <Footer />
-        </div>
+        {this.props.location.pathname === "/login" ? (
+          <div className="login_page_cont">
+            {this.routing()} <Footer />
+          </div>
+        ) : (
+          <div className="app_content_wrapper">
+            {this.routing()} <Footer />
+          </div>
+        )}
 
         {/* <Footer /> */}
       </div>
