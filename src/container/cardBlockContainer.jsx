@@ -87,7 +87,7 @@ class CardBlockContainer extends Component {
         {this.props.list.length === 0 ? (
           <Loader active inline="centered" />
         ) : (
-          <Grid doubling columns={4}>
+          <Grid className="card_deck" doubling columns={4}>
             {window.location.pathname === "/ingredients"
               ? this.renderIngredients()
               : this.renderFormulas()}

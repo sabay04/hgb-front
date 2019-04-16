@@ -9,17 +9,19 @@ import {
   Header,
   Container
 } from "semantic-ui-react";
+//
+// const tagColours = ["tan", "plantation", "sepiaSkin", "oxley", "roseFog"];
 
-const tagColours = ["tan", "plantation", "sepiaSkin", "oxley", "roseFog"];
-
-// const tagColours = [
-//   "sienna",
-//   "rosybrown",
-//   "saddlebrown",
-//   "darkgreen",
-//   "	darkseagreen",
-//   "darkolivegreen"
-// ];
+const tagColours = [
+  "dimGray",
+  "roseBrown",
+  "darkGray",
+  "silver",
+  "pharlap",
+  "bitter",
+  "dustyGray",
+  "pumice"
+];
 
 const colour = () => {
   return tagColours[Math.floor(Math.random() * tagColours.length)];
@@ -67,7 +69,12 @@ class IngredientCard extends Component {
             {ingredient.scientific_name}
           </Header.Subheader>
         </div>
-        {this.state.extra ? this.showIngredientConcerns() : null}
+        <div>
+          <Divider />
+          {this.props.ingredient.concerns.map(concern => (
+            <Label color={colour()}>{concern.name}</Label>
+          ))}
+        </div>
       </Container>
     );
   }

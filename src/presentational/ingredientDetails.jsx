@@ -2,7 +2,18 @@ import React, { Component } from "react";
 import { Card, Image, Label, Grid } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-const tagColours = ["tan", "plantation", "sepiaSkin", "oxley"];
+// const tagColours = ["tan", "plantation", "sepiaSkin", "oxley"];
+
+const tagColours = [
+  "dimGray",
+  "roseBrown",
+  "darkGray",
+  "silver",
+  "pharlap",
+  "bitter",
+  "dustyGray",
+  "pumice"
+];
 
 class IngredientDetails extends Component {
   state = {};

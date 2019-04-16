@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 import { Card, Icon, Image, Label, Header, Container } from "semantic-ui-react";
 
-const tagColours = ["tan", "plantation", "sepiaSkin", "oxley"];
+// const tagColours = ["tan", "plantation", "sepiaSkin", "oxley"];
 
-// const tagColours = [
-//   "sienna",
-//   "rosybrown",
-//   "saddlebrown",
-//   "darkgreen",
-//   "	darkseagreen",
-//   "darkolivegreen"
-// ];
+const tagColours = [
+  "dimGray",
+  "roseBrown",
+  "darkGray",
+  "silver",
+  "pharlap",
+  "bitter",
+  "dustyGray",
+  "pumice"
+];
 
 const colour = () => {
   return tagColours[Math.floor(Math.random() * tagColours.length)];

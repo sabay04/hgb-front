@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import UserDetails from "../presentational/userDetails";
 import CardBlockContainer from "./cardBlockContainer";
-import { Loader } from "semantic-ui-react";
+import { Loader, Grid } from "semantic-ui-react";
 // app > user profile
 class UserProfileContainer extends Component {
   state = {};
@@ -13,15 +13,18 @@ class UserProfileContainer extends Component {
         </Loader>
       );
     return (
-      <div>
-        <UserDetails user={this.props.user} />
-        <div className="my_formulas_wrapper">
+      <Grid container>
+        <Grid.Row>
+          <UserDetails user={this.props.user} />
+        </Grid.Row>
+
+        <Grid.Row className="my_formulas_wrapper">
           <CardBlockContainer
             list={this.props.formulas}
             selectedItem={this.setSelectedFormula}
           />
-        </div>
-      </div>
+        </Grid.Row>
+      </Grid>
     );
   }
 }

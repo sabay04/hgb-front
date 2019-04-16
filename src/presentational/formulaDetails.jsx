@@ -11,7 +11,17 @@ import {
 } from "semantic-ui-react";
 
 // app > formula details container > forumla details
-const tagColours = ["tan", "plantation", "sepiaSkin", "oxley"];
+// const tagColours = ["tan", "plantation", "sepiaSkin", "oxley"];
+const tagColours = [
+  "dimGray",
+  "roseBrown",
+  "darkGray",
+  "silver",
+  "pharlap",
+  "bitter",
+  "dustyGray",
+  "pumice"
+];
 
 const units = [
   { key: "ounces", text: "oz", value: "oz" },
@@ -64,9 +74,9 @@ class FormulaDetails extends Component {
     } = this.props.formula;
 
     return (
-      <Grid className="formula_details_wrapper">
+      <Grid className="formula_details_wrapper" stackable columns={2}>
         <Grid.Row>
-          <Grid.Column className="formula_header">
+          <Grid.Column className="formula_header" width={14}>
             <Image
               className="formula_view_image"
               src={image}
@@ -94,12 +104,13 @@ class FormulaDetails extends Component {
         </Grid.Row>
 
         <Grid.Row className="detail_info">
-          <Grid.Column className="formula_ingredients" width={4}>
+          <Grid.Column className="formula_ingredients" width={3}>
             <h2>Ingredients</h2>
             <div className="formula_qty">
               <Popup
                 trigger={
                   <Input
+                    size="mini"
                     label={
                       <Dropdown
                         onChange={this.handleUnits}
@@ -117,25 +128,6 @@ class FormulaDetails extends Component {
                 size="large"
               />
             </div>
-            {/* <div className="formula_qty">
-              {/* <label>
-                {" "}
-                Convert ingredient list to grams by entering the formula total
-                and grams bellow{" "}
-              </label> */}
-            {/* <Input
-                label={
-                  <Dropdown
-                    onChange={this.handleUnits}
-                    defaultValue="%"
-                    options={units}
-                  />
-                }
-                labelPosition="right"
-                placeholder="total quantity"
-                onChange={this.handleFormulaQty}
-              />
-            </div> */}
             {ingredients.map(ingredient => (
               <p>
                 •{ingredient.name} - <i>{ingredient.percentage}%</i> ...{" "}
@@ -144,7 +136,7 @@ class FormulaDetails extends Component {
             ))}
           </Grid.Column>
 
-          <Grid.Column className="formula_directions" width={11}>
+          <Grid.Column className="formula_directions" width={10}>
             <h2>Directions</h2>
             <p>{directions}</p>
           </Grid.Column>

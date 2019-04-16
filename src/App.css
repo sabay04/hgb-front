@@ -326,13 +326,29 @@ button {
   border-radius: 4px;
 }
 
+.ingredient_buttons button {
+  float: right;
+  font-family: "Tenor Sans", sans-serif;
+  color: black;
+  background-color: transparent;
+  border: 2px solid #a07c7e;
+  letter-spacing: 2px;
+  font-size: 1.2em;
+}
+
 .edit_or_delete {
   float: left;
   margin-top: 10px;
 }
 .edit_or_delete button {
   margin: 10px;
+  float: right;
   font-family: "Tenor Sans", sans-serif;
+  color: black;
+  background-color: transparent;
+  border: 2px solid #a07c7e;
+  letter-spacing: 2px;
+  font-size: 1.2em;
 }
 
 /* colours  */
@@ -369,6 +385,64 @@ button {
   color: white;
   font-family: "Tenor Sans", sans-serif;
   background-color: #e6c7b6;
+  margin: 2px;
+}
+
+/* new colors */
+
+.ui.dimGray.label {
+  color: white;
+  font-family: "Tenor Sans", sans-serif;
+  background-color: #835f4f;
+  margin: 2px;
+}
+
+.ui.roseBrown.label {
+  color: white;
+  font-family: "Tenor Sans", sans-serif;
+  background-color: #c8beac;
+  margin: 2px;
+}
+
+.ui.darkGray.label {
+  color: white;
+  font-family: "Tenor Sans", sans-serif;
+  background-color: #a2938b;
+  margin: 2px;
+}
+
+.ui.silver.label {
+  color: white;
+  font-family: "Tenor Sans", sans-serif;
+  background-color: #d2c3bc;
+  margin: 2px;
+}
+
+.ui.pharlap.label {
+  color: white;
+  font-family: "Tenor Sans", sans-serif;
+  background-color: #a07c7e;
+  margin: 2px;
+}
+
+.ui.bitter.label {
+  color: white;
+  font-family: "Tenor Sans", sans-serif;
+  background-color: #929480;
+  margin: 2px;
+}
+
+.ui.dustyGray.label {
+  color: white;
+  font-family: "Tenor Sans", sans-serif;
+  background-color: #a19098;
+  margin: 2px;
+}
+
+.ui.pumice.label {
+  color: white;
+  font-family: "Tenor Sans", sans-serif;
+  background-color: #cbcfcb;
   margin: 2px;
 }
 
@@ -481,7 +555,7 @@ div.ui.container.filter_wrapper {
 
 div.header.card_title {
   font-family: "Tenor Sans", sans-serif;
-  color: #245442;
+  color: black;
 }
 
 a .ui.container.explore_card {
@@ -526,9 +600,10 @@ a .ui.container.explore_card .header {
   width: 100%;
   padding: 100px;
   padding-top: 50px;
+  margin: auto;
 }
-.formula_header,
-.ingredient_header {
+.column.formula_header,
+.column.ingredient_header {
   background-color: #f4e6de;
 
   padding: 30px;
@@ -538,31 +613,50 @@ a .ui.container.explore_card .header {
   height: fit-content;
 }
 
+.ui.grid > .row > .column > img {
+  height: auto;
+  width: auto;
+  vertical-align: top;
+  max-width: 400px;
+  max-height: 450px;
+}
+
 .formula_ingredients,
 .ingredeint_formula_suggestions {
   padding: 20px;
   font-family: "Tenor Sans", sans-serif;
   color: white;
-  background-color: #245442;
+  background-color: #afb1a6;
+  text-align: center;
   margin: 10px;
-  margin-right: 15px;
+  margin-top: 20px;
+  /* margin-right: 15px; */
   width: fit-content;
   height: fit-content;
+  margin-left: 2%;
 }
 
 .formula_directions,
 .ingredeint_formula_description {
-  padding: 20px;
+  padding-top: 20px;
+  padding-left: 70px;
   font-family: "Tenor Sans", sans-serif;
   color: white;
-  background-color: #a3593f;
+  background-color: #b9abac;
   text-align: left;
-  margin: 10px;
-  margin-left: 20px;
+  margin-top: 20px;
+  /* margin-left: 20px; */
   width: fit-content;
   height: fit-content + 100px;
+  margin-right: 2%;
 }
 
+.ui.stackable.grid > .row > .column,
+.ui.stackable.grid > .row > .wide.column {
+  margin: 10px 10px !important;
+}
+
+/* .ui.grid>.row>[class*="nine wide"].column */
 /* .formula_directions h2,
 .formula_ingredients h2,
 .ingredeint_formula_description h2,
@@ -585,6 +679,8 @@ a .ui.container.explore_card .header {
 
 .detail_info {
   padding: 10px;
+  display: flex;
+  justify-content: center;
 }
 
 .header_content {
@@ -609,6 +705,10 @@ a .ui.container.explore_card .header {
 .header_content p {
   font-size: 1.2em;
   font-weight: normal;
+}
+
+.formula_qty {
+  margin-bottom: 10px;
 }
 
 .loader_wrapper {
@@ -718,8 +818,13 @@ div.image_text-centered {
   font-weight: normal;
   margin: 30px;
 }
+.ui.grid.home_grid > .row > .column > img {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+}
 
-.ui.grid > .row > .column {
+.ui.grid.home_grid > .row > .column {
   height: 50%;
   margin: auto;
 }
@@ -817,6 +922,51 @@ div.ui.sepiaSkin.progress {
   color: grey;
 }
 
-.ingredient_buttons {
-  float: right;
+/* user profile */
+
+.container.user_details {
+  background-color: #a07c7e;
+  display: flex;
+  height: fit-content;
+  padding: 20px;
+}
+
+.container.user_details img.ui.medium.circular.image {
+  height: auto;
+
+  width: auto;
+  vertical-align: top;
+  max-width: 100%;
+  max-height: 300px;
+}
+
+.container.user_details.content {
+  padding: 20px;
+}
+
+.container.user_details .ui.icon.header .content {
+  padding-top: 20px;
+  font-family: "Tenor Sans", sans-serif;
+  color: white;
+  font-size: 1.4em;
+
+  font-weight: normal;
+}
+
+.profile_title {
+  padding: 20px;
+  display: flex;
+}
+
+.profile_title h1 {
+  font-family: "Tenor Sans", sans-serif;
+  color: #245442;
+  font-size: 3em;
+  font-style: italic;
+  font-weight: normal;
+  margin: auto;
+}
+
+.grid.card_deck {
+  padding-bottom: 5em !important;
 }
