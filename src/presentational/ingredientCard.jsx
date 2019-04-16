@@ -5,7 +5,9 @@ import {
   Image,
   Label,
   Divider,
-  Placeholder
+  Placeholder,
+  Header,
+  Container
 } from "semantic-ui-react";
 
 const tagColours = ["tan", "plantation", "sepiaSkin", "oxley", "roseFog"];
@@ -36,36 +38,58 @@ class IngredientCard extends Component {
 
   showIngredientConcerns = () => {
     return (
-      <Card.Content extra>
+      <div>
         <Divider />
         {this.props.ingredient.concerns.map(concern => (
           <Label color={colour()}>{concern.name}</Label>
         ))}
-      </Card.Content>
+      </div>
     );
   };
 
   render() {
     const { ingredient, selectedItem } = this.props;
     return (
-      <Card
-        className="card"
+      <Container
+        // className="card"
+        className="explore_card"
         onClick={() => selectedItem(ingredient.id)}
         onMouseEnter={this.handleHover}
         onMouseLeave={this.handleHover}
       >
         <Image src={ingredient.image} alt={ingredient.name} />
-        <Card.Content>
-          <Card.Meta className="card_type">{ingredient.category}</Card.Meta>
-          <Card.Header className="card_title">{ingredient.name}</Card.Header>
-          <Card.Meta className="card_subtitle">
+        <div className="card_content">
+          <Header.Subheader className="card_type">
+            {ingredient.category}
+          </Header.Subheader>
+          <Header className="card_title">{ingredient.name}</Header>
+          <Header.Subheader className="card_subtitle">
             {ingredient.scientific_name}
-          </Card.Meta>
-        </Card.Content>
+          </Header.Subheader>
+        </div>
         {this.state.extra ? this.showIngredientConcerns() : null}
-      </Card>
+      </Container>
     );
   }
 }
 
 export default IngredientCard;
+
+{
+  /* <Card
+className="card"
+onClick={() => selectedItem(ingredient.id)}
+onMouseEnter={this.handleHover}
+onMouseLeave={this.handleHover}
+>
+<Image src={ingredient.image} alt={ingredient.name} />
+<Card.Content>
+  <Card.Meta className="card_type">{ingredient.category}</Card.Meta>
+  <Card.Header className="card_title">{ingredient.name}</Card.Header>
+  <Card.Meta className="card_subtitle">
+    {ingredient.scientific_name}
+  </Card.Meta>
+</Card.Content>
+{this.state.extra ? this.showIngredientConcerns() : null}
+</Card> */
+}

@@ -64,68 +64,63 @@ class Filter extends Component {
 
   render() {
     return (
-      <Container className="filter">
-        <h3 className="filter_title"> Filter </h3>
-        <Grid>
-          <Grid.Row>
-            <Grid.Column>
-              <Input
-                name="search"
-                fluid
-                onChange={this.props.handleChange}
-                icon={{ name: "search", circular: true, link: true }}
-                placeholder="Search by name..."
-              />
-            </Grid.Column>
-          </Grid.Row>
-
-          <Grid.Row>
-            <Grid.Column>
-              <Input
-                name="concernSearch"
-                fluid
-                onChange={this.props.handleChange}
-                icon={{ name: "search", circular: true, link: true }}
-                placeholder="Search by concern..."
-              />
-            </Grid.Column>
-          </Grid.Row>
-          {this.props.areas ? (
+      <Container className="filter_wrapper">
+        <Container className="filter">
+          <h3 className="filter_title"> Filter </h3>
+          <Grid>
             <Grid.Row>
               <Grid.Column>
-                <Dropdown
-                  name="areaSearch"
-                  onChange={this.props.handleDropdown}
-                  placeholder="Select a area..."
+                <Input
+                  name="search"
                   fluid
-                  search
-                  selection
-                  options={this.populateAreas()}
+                  onChange={this.props.handleChange}
+                  icon={{ name: "search", circular: true, link: true }}
+                  placeholder="Search by name..."
                 />
               </Grid.Column>
             </Grid.Row>
-          ) : null}
-          <Grid.Row>
-            <Grid.Column>
-              {/* <Input
-                name="concernSearch"
-                fluid
-                onChange={this.props.handleChange}
-                icon={{ name: "search", circular: true, link: true }}
-                placeholder="Search by concern..."
-              /> */}
-              <Dropdown
-                name="categorySearch"
-                onChange={this.props.handleDropdown}
-                placeholder="Select a category"
-                fluid
-                search
-                selection
-                options={this.categoryOptions()}
-              />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+
+            <Grid.Row>
+              <Grid.Column>
+                <Input
+                  name="concernSearch"
+                  fluid
+                  onChange={this.props.handleChange}
+                  icon={{ name: "search", circular: true, link: true }}
+                  placeholder="Search by concern..."
+                />
+              </Grid.Column>
+            </Grid.Row>
+            {this.props.areas ? (
+              <Grid.Row>
+                <Grid.Column>
+                  <Dropdown
+                    name="areaSearch"
+                    onChange={this.props.handleDropdown}
+                    placeholder="Select a area..."
+                    fluid
+                    search
+                    selection
+                    options={this.populateAreas()}
+                  />
+                </Grid.Column>
+              </Grid.Row>
+            ) : null}
+            <Grid.Row>
+              <Grid.Column>
+                <Dropdown
+                  name="categorySearch"
+                  onChange={this.props.handleDropdown}
+                  placeholder="Select a category"
+                  fluid
+                  search
+                  selection
+                  options={this.categoryOptions()}
+                />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Container>
       </Container>
     );
   }

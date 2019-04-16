@@ -21,7 +21,7 @@ body {
 .app_content_wrapper {
   /* height: fit-content; */
   position: relative;
-  top: 190px;
+  top: 140px;
   overflow: auto;
   min-height: 100vh;
   /* height: auto; */
@@ -159,6 +159,7 @@ label {
 
 .top_logo_nav {
   background-color: #f4e6dd;
+  background-color: #ded3d4;
   position: relative;
   top: 0px;
   left: 0px;
@@ -227,7 +228,13 @@ a.nav_item:hover {
 
 .formula_form_wrapper {
   background-color: #e6c7b6;
-  width: 100vw;
+  background-color: #d5d6d0;
+  background-image: url(images/outlinebackground.svg);
+
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-size: 100% 100%;
+  width: 100%;
   height: fit-content;
   padding-bottom: 2.5rem;
   display: flex;
@@ -235,9 +242,10 @@ a.nav_item:hover {
 
 div.ui.container.formula_form {
   background-color: white;
+  opacity: 1;
   margin: 10%;
   height: fit-content;
-  width: 75%;
+  width: 60%;
   padding: 40px;
   box-shadow: 0px 5px 15px 0px rgba(14, 33, 26, 0.3);
 }
@@ -391,12 +399,34 @@ button {
 }
 /* filter  */
 
-.filter {
-  margin-top: 54%;
-  width: fit-content;
-  height: 400px;
-  background-color: #a3593f;
+div.ui.container.filter_wrapper {
+  margin-top: 120px;
+  background-color: #f0e3dd;
+  /* background-color: #faefea; */
+  width: 100%;
+  height: fit-content;
+  background-image: url(images/outlinebackground.svg);
+
+  background-repeat: no-repeat;
+  /* background-size: 25px 50px; */
+  background-size: 100% 100%;
   padding: 15px;
+  display: flex;
+}
+
+.filter {
+  /* margin-top: 54%; */
+  width: fit-content;
+
+  height: fit-content;
+  margin: auto;
+  background-color: #d0b4a0;
+  background-color: #c8a8ab;
+
+  background-color: #afb1a6;
+  background-color: #b9abac;
+  padding: 20px;
+  text-align: center;
 }
 
 .filter_title {
@@ -404,21 +434,27 @@ button {
   font-family: "Tenor Sans", sans-serif;
   margin-top: 20px;
   font-size: 25px;
+  font-weight: normal;
   margin: 10px;
 }
 .page_title {
   /* font-family: "Playfair Display", serif; */
   /* font-family: "Tenor Sans", sans-serif; */
 
-  top: 20px;
+  top: 0px;
   bottom: 20px;
-  margin: 40px;
-
+  /* margin: 40px; */
+  text-align: center;
+  text-align: 45%;
+  padding: 20px;
+  letter-spacing: 15px;
+  margin: 20px;
   color: #245442;
 }
 .page_title h1 {
   font-family: "Tenor Sans", sans-serif;
   font-size: 40px;
+  font-weight: normal;
   /* font-family: "Playfair Display", serif; */
   /* top: 20px;
   margin: 40px; */
@@ -448,8 +484,28 @@ div.header.card_title {
   color: #245442;
 }
 
-a.ui.card.explore_card {
+a .ui.container.explore_card {
   box-shadow: 0px 5px 15px 0px rgba(8, 8, 8, 0.35);
+  padding: 3%;
+}
+
+a .ui.container.explore_card .image {
+  height: auto;
+  /* width: auto; */
+  vertical-align: top;
+  max-width: 100%;
+  max-height: 300px;
+  margin: auto;
+}
+
+a .ui.container.explore_card .card_content {
+  padding: 10px;
+  font-family: "Tenor Sans", sans-serif;
+}
+
+a .ui.container.explore_card .header {
+  font-family: "Tenor Sans", sans-serif;
+  font-weight: normal;
 }
 
 .explore_page {
@@ -600,10 +656,11 @@ div.image_text-centered {
   /* change font size based on screen size */
   font-weight: normal;
   color: white;
+
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-35%, -50%);
+  transform: translate(-45%, 0%);
 }
 
 /* SMARTPHONES PORTRAIT */
@@ -637,13 +694,13 @@ div.image_text-centered {
 /* Large screens ----------- */
 @media only screen and (min-width: 1824px) {
   div.image_text-centered {
-    font-size: 5em;
+    font-size: 4em;
   }
 }
 
 .home_grid {
   /* margin: 30px  */
-  margin: 30px 60px !important;
+  margin: 7% 10% !important;
   /* display: flex; */
   display: flex;
   flex-direction: row;
@@ -653,6 +710,24 @@ div.image_text-centered {
   align-items: flex-start;
 }
 
+.home_grid h1 {
+  font-family: "Tenor Sans", sans-serif;
+  color: #245442;
+  font-size: 3em;
+  font-style: italic;
+  font-weight: normal;
+  margin: 30px;
+}
+
+.ui.grid > .row > .column {
+  height: 50%;
+  margin: auto;
+}
+
+.row.home_row {
+  /* margin: auto; */
+}
+
 .home_row {
   order: 0;
   flex: 0 1 auto;
@@ -660,7 +735,7 @@ div.image_text-centered {
 }
 
 .formula_box {
-  background-color: #a3593f;
+  background-color: #f1e0da;
   padding: 20px;
   margin: 20px;
   justify-content: center;
@@ -674,7 +749,7 @@ div.image_text-centered {
 }
 
 .ingredient_box {
-  background-color: #245442;
+  background-color: #d5d6d0;
   padding: 20px;
   margin: 20px;
   justify-content: center;
@@ -688,7 +763,7 @@ div.image_text-centered {
 }
 
 .create_box {
-  background-color: #a3593f;
+  background-color: #f1e0da;
   padding: 20px;
   margin: 20px;
   justify-content: center;
