@@ -7,9 +7,9 @@ import API from "../api";
 import Dropzone from "react-dropzone";
 import request from "superagent";
 
-// const CLOUDINARY_UPLOAD_PRESET = "vgvyrowl";
-// const CLOUDINARY_UPLOAD_URL =
-//   "https://api.cloudinary.com/v1_1/sabay/image/upload";
+const CLOUDINARY_UPLOAD_PRESET = "vgvyrowl";
+const CLOUDINARY_UPLOAD_URL =
+  "https://api.cloudinary.com/v1_1/sabay/image/upload";
 
 class SignupForm extends Component {
   state = {
