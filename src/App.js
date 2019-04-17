@@ -14,6 +14,7 @@ import Footer from "./presentational/footer";
 import IngredientFormulaContainer from "./container/ingredientFormulaContainer";
 
 import logo from "./images/hgb.png";
+import "semantic-ui-css/semantic.min.css";
 
 class App extends Component {
   state = {
