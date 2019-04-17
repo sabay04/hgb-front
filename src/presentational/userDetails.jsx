@@ -30,7 +30,7 @@ class UserDetails extends Component {
         </Header> */}
 
         <Header as="h2" icon textAlign="center">
-          {this.props.user.image === null ? (
+          {!this.props.user.image ? (
             <Image
               src="https://react.semantic-ui.com/images/avatar/large/molly.png"
               size="medium"
