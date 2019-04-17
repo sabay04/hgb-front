@@ -1,4 +1,5 @@
-const baseUrl = process.env.API_BASEURL || "http://localhost:3000/api/v001";
+const baseUrl =
+  process.env.REACT_APP_API_BASEURL || "http://localhost:3000/api/v001";
 const formulasUrl = `${baseUrl}/formulas`;
 const usersUrl = `${baseUrl}/users`;
 const ingredientsUrl = `${baseUrl}/ingredients`;
