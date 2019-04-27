@@ -17,9 +17,8 @@ import request from "superagent";
 //   Transformation,
 //   CloudinaryContext
 // } from "cloudinary-react";
-const CLOUDINARY_UPLOAD_PRESET = "vgvyrowl";
-const CLOUDINARY_UPLOAD_URL =
-  "https://api.cloudinary.com/v1_1/sabay/image/upload";
+const CLOUDINARY_UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET;
+const CLOUDINARY_UPLOAD_URL = process.env.CLOUDINARY_UPLOAD_URL;
 
 // app > formula form container  > formula form
 class FormulaForm extends Component {

@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import homeBotanic from "../images/HomeBotanic.jpg";
 import formulaBox from "../images/formulaBox.jpg";
 import ingredientBox from "../images/almond-37688.svg";
-import createBox from "../images/createFormula.jpg";
+// import essential from "../plant-147013.svg";
+// import plant from "../aloe-37685 (1).svg";
+// import createBox from "../images/createFormula.jpg";
 import { Container, Image, Grid } from "semantic-ui-react";
 // app > home
 class HomeContainer extends Component {

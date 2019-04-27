@@ -331,7 +331,17 @@ class App extends Component {
   routing = () => {
     return (
       <>
-        <Route exact path={`/`} render={() => <HomeContainer />} />
+        <Route
+          exact
+          path={`/`}
+          render={() =>
+            !this.state.currentUser ? (
+              <Redirect to="/login" />
+            ) : (
+              <HomeContainer />
+            )
+          }
+        />
         <Route
           exact
           path={`/login`}
@@ -517,13 +527,9 @@ class App extends Component {
         ) : null}
 
         {this.props.location.pathname === "/login" ? (
-          <div className="login_page_cont">
-            {this.routing()} <Footer />
-          </div>
+          <div className="login_page_cont">{this.routing()}</div>
         ) : (
-          <div className="app_content_wrapper">
-            {this.routing()} <Footer />
-          </div>
+          <div className="app_content_wrapper">{this.routing()}</div>
         )}
 
         {/* <Footer /> */}
