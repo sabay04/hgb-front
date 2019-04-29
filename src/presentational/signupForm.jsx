@@ -4,11 +4,18 @@ import { Form, Container, Divider, Image } from "semantic-ui-react";
 import logo from "../images/hgb.png";
 import API from "../api";
 
+import environment from "../env";
 import Dropzone from "react-dropzone";
 import request from "superagent";
 
-const CLOUDINARY_UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET;
-const CLOUDINARY_UPLOAD_URL = process.env.CLOUDINARY_UPLOAD_URL;
+const CLOUDINARY_UPLOAD_PRESET =
+  process.env.REACT_APP_CLOUDINARY_HEROKU_PRESET ||
+  environment.preset.CLOUD_PRESET;
+
+// process.env.REACT_APP_LOCAL_CLOUDINARY_PRESET;
+
+const CLOUDINARY_UPLOAD_URL =
+  process.env.REACT_APP_CLOUDINARY_UPLOAD_URL || environment.url.CLOUD_URL;
 
 class SignupForm extends Component {
   state = {

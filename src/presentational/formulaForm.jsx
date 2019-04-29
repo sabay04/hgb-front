@@ -25,7 +25,7 @@ const CLOUDINARY_UPLOAD_PRESET =
 // process.env.REACT_APP_LOCAL_CLOUDINARY_PRESET;
 
 const CLOUDINARY_UPLOAD_URL =
-  process.env.CLOUDINARY_UPLOAD_URL || environment.url.CLOUD_URL;
+  process.env.REACT_APP_CLOUDINARY_UPLOAD_URL || environment.url.CLOUD_URL;
 
 // process.env.REACT_APP_LOCAL_CLOUDINARY_URL;
 
