@@ -9,6 +9,7 @@ import {
   Divider
 } from "semantic-ui-react";
 
+import environment from "../env";
 import Dropzone from "react-dropzone";
 import request from "superagent";
 // import {
@@ -17,8 +18,16 @@ import request from "superagent";
 //   Transformation,
 //   CloudinaryContext
 // } from "cloudinary-react";
-const CLOUDINARY_UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET;
-const CLOUDINARY_UPLOAD_URL = process.env.CLOUDINARY_UPLOAD_URL;
+const CLOUDINARY_UPLOAD_PRESET =
+  process.env.REACT_APP_CLOUDINARY_HEROKU_PRESET ||
+  environment.preset.CLOUD_PRESET;
+
+// process.env.REACT_APP_LOCAL_CLOUDINARY_PRESET;
+
+const CLOUDINARY_UPLOAD_URL =
+  process.env.CLOUDINARY_UPLOAD_URL || environment.url.CLOUD_URL;
+
+// process.env.REACT_APP_LOCAL_CLOUDINARY_URL;
 
 // app > formula form container  > formula form
 class FormulaForm extends Component {
@@ -40,11 +49,13 @@ class FormulaForm extends Component {
     this.setState({
       uploadedFile: files[0]
     });
-    console.log(files);
+    console.log("image drop", files);
     this.handleImageUpload(files[0]);
   };
 
   handleImageUpload = file => {
+    console.log("handleupload", file);
+    console.log("cloud:", CLOUDINARY_UPLOAD_PRESET);
     let upload = request
       .post(CLOUDINARY_UPLOAD_URL)
       .field("upload_preset", CLOUDINARY_UPLOAD_PRESET)
